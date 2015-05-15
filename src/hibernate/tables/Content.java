@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Content implements Serializable{
+public class Content implements Serializable, hibernate.tables.Table{
 	private static final long serialVersionUID = -5284963386489685478L;
 	@Id
 	@Column(name = "c_id")
@@ -46,16 +46,16 @@ public class Content implements Serializable{
 	private String url;
 
 	@ManyToOne								// (targetEntity = User.class)
-	@JoinColumn(name = "c_author")			//как поле называется в таблице
+	@JoinColumn(name = "c_author")			//field name in table
 	private User author;
 
-	@OneToMany(mappedBy = "content") 		// ссылка на поле в объекте ContentTagLinker
+	@OneToMany(mappedBy = "content") 		// reference on field in object ContentTagLinker
 	private Set<ContentTagLinker> contents;
 
-	@OneToMany(mappedBy = "contentId")		// ссылка на поле в объекте FrontPage
+	@OneToMany(mappedBy = "contentId")		// reference on field in object FrontPage
 	private Set<FrontPage> frontPages;
 
-//	@OneToMany(mappedBy = "content") 		// ссылка на поле в объекте ContentPosition
+//	@OneToMany(mappedBy = "content") 		// reference on field in object ContentPosition
 //	private Set<ContentTagLinker> contents;
 	
 	

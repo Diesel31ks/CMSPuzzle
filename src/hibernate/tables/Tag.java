@@ -8,14 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "tag")
-public class Tag implements Serializable{
-	private static final long serialVersionUID = 3927545077749622729L;
-
+public class Tag implements Serializable, hibernate.tables.Table{
+	private static final long serialVersionUID = 1470698910064304556L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "t_id")
@@ -182,6 +181,5 @@ public class Tag implements Serializable{
 			return false;
 		return true;
 	}
-
 	
 }

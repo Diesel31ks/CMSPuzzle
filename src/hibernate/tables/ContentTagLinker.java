@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "content_tag_linker")
-public class ContentTagLinker implements Serializable{
+public class ContentTagLinker implements Serializable, hibernate.tables.Table{
 	private static final long serialVersionUID = 6859059228823369391L;
 	@Id
 	@Column (name = "ctl_id")

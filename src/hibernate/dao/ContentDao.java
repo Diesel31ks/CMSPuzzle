@@ -5,7 +5,7 @@ import hibernate.tables.Content;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface ContentDao {
+public interface ContentDao{
 
 	void addContent(Content content) throws SQLException;
 

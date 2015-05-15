@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "front_page")
-public class FrontPage implements Serializable{
+public class FrontPage implements Serializable, hibernate.tables.Table{
 	private static final long serialVersionUID = -2974433157849728801L;
 
 	@Id

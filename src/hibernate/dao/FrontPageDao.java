@@ -5,7 +5,7 @@ import hibernate.tables.FrontPage;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface FrontPageDao {
+public interface FrontPageDao{
 	void addFrontPageContent(FrontPage frontPage) throws SQLException;
 
 	FrontPage getFrontPageContent(int id) throws SQLException;

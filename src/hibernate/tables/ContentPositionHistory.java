@@ -1,19 +1,19 @@
 package hibernate.tables;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "content_position_history")
-public class ContentPositionHistory {
+public class ContentPositionHistory implements Serializable, hibernate.tables.Table{
+	private static final long serialVersionUID = 3341299262014786262L;
 	@Id
 	@Column(name = "cph_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,12 +23,9 @@ public class ContentPositionHistory {
 	@Column(name = "cph_comment")
 	private String comment;
 	
-	private Integer contentPositionId;
+	private Integer contentId;
 	
 	private Integer userId;
-	
-	@OneToMany(mappedBy = "contentPositionHistoryId") 		// ссылка на поле в объекте ContentPosition
-	private Set<ContentPositon> contentPositons;
 	
 	@Override
 	public int hashCode() {
@@ -37,7 +34,7 @@ public class ContentPositionHistory {
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
 		result = prime
 				* result
-				+ ((contentPositionId == null) ? 0 : contentPositionId
+				+ ((contentId == null) ? 0 : contentId
 						.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -59,10 +56,10 @@ public class ContentPositionHistory {
 				return false;
 		} else if (!comment.equals(other.comment))
 			return false;
-		if (contentPositionId == null) {
-			if (other.contentPositionId != null)
+		if (contentId == null) {
+			if (other.contentId != null)
 				return false;
-		} else if (!contentPositionId.equals(other.contentPositionId))
+		} else if (!contentId.equals(other.contentId))
 			return false;
 		if (date == null) {
 			if (other.date != null)
@@ -88,13 +85,10 @@ public class ContentPositionHistory {
 				.append("ContentPositionHistory [id=").append(id)
 				.append(", date=").append(date)
 				.append(", comment=").append(comment)
-				.append(", contentPositionId=").append(contentPositionId)
+				.append(", contentId=").append(contentId)
 				.append(", userId=").append(userId)
 				.append("]").toString();
 	}
-	
-	
-	
 	
 	
 }

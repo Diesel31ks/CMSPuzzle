@@ -20,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable{
+public class User implements Serializable, hibernate.tables.Table{
 	
 	private static final long serialVersionUID = -1698226571037727021L;
 	@Id
@@ -46,9 +46,14 @@ public class User implements Serializable{
 	@Column (columnDefinition="enum('UNAVAILABLE','AVAILABLE')", name="u_status") 
 	private UserStatus status;
 
-	@OneToMany(mappedBy="author")	//ссылка на поле в объекте Content
+	@OneToMany(mappedBy="author")	//reference on field in object Content
 	private Set<Content>content;
 
+	@Column (name = "confirm_code")
+	private String confirmCode;
+	@Column (name = "restore_code")
+	private String restoreCode;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -103,6 +108,18 @@ public class User implements Serializable{
 	public void setContent(Set<Content> content) {
 		this.content = content;
 	}
+	public String getConfirmCode() {
+		return confirmCode;
+	}
+	public void setConfirmCode(String confirmCode) {
+		this.confirmCode = confirmCode;
+	}
+	public String getRestoreCode() {
+		return restoreCode;
+	}
+	public void setRestoreCode(String restoreCode) {
+		this.restoreCode = restoreCode;
+	}
 	
 	@Override
 	public String toString() {
@@ -115,6 +132,91 @@ public class User implements Serializable{
 				.append(", role=").append(role)
 				.append(", status=").append(status)
 				.append(", content=").append(content)
+				.append(", confirmCode=").append(confirmCode)
+				.append(", restoreCode=").append(restoreCode)
 				.append("]").toString();
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((confirmCode == null) ? 0 : confirmCode.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result
+				+ ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result
+				+ ((restoreCode == null) ? 0 : restoreCode.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (confirmCode == null) {
+			if (other.confirmCode != null)
+				return false;
+		} else if (!confirmCode.equals(other.confirmCode))
+			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (restoreCode == null) {
+			if (other.restoreCode != null)
+				return false;
+		} else if (!restoreCode.equals(other.restoreCode))
+			return false;
+		if (role != other.role)
+			return false;
+		if (status != other.status)
+			return false;
+		return true;
+	}
+
 }
