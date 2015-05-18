@@ -19,7 +19,7 @@
 	<jsp:useBean id="user" class="hibernate.tables.User"
 		scope="application" />
 	<br />
-	<a href="/CMSPuzzle-1.0-SNAPSHOT/">Main page</a>
+	<a href="/CMSPuzzle-1_sasha/">Main page</a>
 	<br />
 	<a href="login.jsp">Log in</a>
 

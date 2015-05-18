@@ -82,7 +82,7 @@ public class ContentPositionHistory implements Serializable, hibernate.tables.Ta
 	@Override
 	public String toString() {
 		return new StringBuffer()
-				.append("ContentPositionHistory [id=").append(id)
+				.append("ContentPositionHistoryDao [id=").append(id)
 				.append(", date=").append(date)
 				.append(", comment=").append(comment)
 				.append(", contentId=").append(contentId)

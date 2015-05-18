@@ -11,7 +11,11 @@ public interface ContentTagLinkerDao{
 
 	ContentTagLinker getLink(int id) throws SQLException;
 
+	ContentTagLinker getContentTagLinkerByProperty(String propertyName, Object propertyValue) throws SQLException;
+	
 	List<ContentTagLinker> getLinks() throws SQLException;
-
+	
+	void updateLink(ContentTagLinker contentTagLinker) throws SQLException;
+	
 	void deleteLink(ContentTagLinker contentTagLinker) throws SQLException;
 }

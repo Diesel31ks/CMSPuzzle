@@ -2,67 +2,34 @@ package hibernate.daoImpl;
 
 import java.sql.SQLException;
 import java.util.List;
-import org.hibernate.Session;
 import hibernate.dao.ContentDao;
 import hibernate.tables.Content;
 import hibernate.util.HibernateDaoBuilder;
-import hibernate.util.HibernateUtil;
 
 public class ContentDaoImpl implements ContentDao{
 
-	@Override
 	public void addContent(Content content) throws SQLException {
 		HibernateDaoBuilder.saveTableValue(content);
 	}
 
-	@Override
 	public Content getContent(int id) throws SQLException {
-		return (Content)HibernateDaoBuilder.getTableValue(id, Content.class);
-//		Session session = null;
-//		Content content = null;
-//		try {
-//			session = HibernateUtil.getSessionFactory().openSession();
-//			session.beginTransaction();
-//			content = (Content) session.get(Content.class, id);
-//			session.getTransaction().commit();
-//		} finally {
-//			if ((session != null) && (session.isOpen())) {
-//				session.close();
-//			}
-//		}
-//		return content;
+		return (Content)HibernateDaoBuilder.getTableValue(id, new Content());
 	}
 
-	@Override
 	public List<Content> getContents() throws SQLException {
-		return (List<Content>)HibernateDaoBuilder.getTableValues(Content.class);
-//		Session session = null;
-//		List<Content> contents = null;
-//		try {
-//			session = HibernateUtil.getSessionFactory().openSession();
-//			session.beginTransaction();
-//			contents = session.createCriteria(Content.class).list();
-//			session.getTransaction().commit();
-//		} finally {
-//			if ((session != null) && (session.isOpen())) {
-//				session.close();
-//			}
-//		}
-//		return contents;
+		return (List<Content>)HibernateDaoBuilder.getTableValues(new Content());
 	}
 
-	@Override
 	public void deleteContent(Content content) throws SQLException {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.delete(content);
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
+		HibernateDaoBuilder.deleteTableValue(content);
+	}
+
+	public Content getContentByProperty(String propertyName,
+			Object propertyValue) throws SQLException {
+		return (Content)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new Content());
+	}
+
+	public void updateContent(Content content) throws SQLException {
+		HibernateDaoBuilder.updateTableValue(content);
 	}
 }

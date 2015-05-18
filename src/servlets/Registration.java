@@ -10,9 +10,8 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -27,7 +26,7 @@ import authorization.SendMessage;
 
 @WebServlet(description = "to register a new user", urlPatterns = { "/registration" })
 public class Registration extends HttpServlet {
-	private final static String HOST = "10.9.2.159";
+	private static final String HOST = "10.9.2.159";
 	private static final long serialVersionUID = 1L;
 	HibernateFactory hibernateFactory = HibernateFactory.getInstance();
 	UserDao userDao = hibernateFactory.getUserDao();
@@ -71,7 +70,67 @@ public class Registration extends HttpServlet {
 					.forward(request, response);
 			return;
 		}
-		// request.setAttribute("passwords_not_equal", Boolean.FALSE);
+		// request.setAttribute("passwords_not_equal", Boolean.FALSE);.
+		
+		checkingLoginExists(request, response, login);
+		
+		User newUser = new User();
+		newUser.setFirstName(firstName);
+		newUser.setLastName(lastName);
+		newUser.setLogin(login);
+		newUser.setEmail(email);
+		newUser.setRole(role);
+		newUser.setStatus(status);
+		String confirmCode, restoreCode;
+		try {
+			String hash = PasswordHash.createHash(password);
+			confirmCode = String.valueOf( new Random().nextInt(1_000_000_000));
+			restoreCode = String.valueOf( new Random().nextInt(1_000_000_000));
+			newUser.setPassword(hash);
+			newUser.setConfirmCode(confirmCode);
+			newUser.setRestoreCode(restoreCode);
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
+			e1.printStackTrace();
+			getServletContext().getRequestDispatcher("/registration.jsp")
+					.forward(request, response);
+			return;
+		}
+
+		try {
+			userDao.addUser(newUser);
+			System.out.println("New user was saved in database");
+			// getServletContext().getRequestDispatcher("/successLogin.jsp").forward(request,
+			// response);
+			String[] recipients = { email };
+			String subject = "Подтверждение регистрации";
+			String info = this.getServletContext().getContextPath();
+			String text = "Вы зарегистрированиы на сайте "+info
+					+ "Для потверждения регистрации пройдите по ссылке "
+					+"http://"+ HOST + ":" + request.getServerPort()+ info+"/SuccessRegistration?confirmationCode="+confirmCode;
+			try {
+				new SendMessage().sendMessage(recipients, subject, text);
+				System.out.println("Message was sent");
+			} catch (MessagingException |SecurityException e) {
+				System.out.println("Message was not sent");
+				e.printStackTrace();
+			} finally {
+				getServletContext().getRequestDispatcher("/").forward(request,
+						response);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			getServletContext().getRequestDispatcher("/error.jsp").forward(
+					request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			getServletContext().getRequestDispatcher("/error.jsp").forward(
+					request, response);
+		}
+	}
+
+	private void checkingLoginExists(HttpServletRequest request,
+			HttpServletResponse response, String login)
+			throws ServletException, IOException {
 		try {
 			List<User> users = userDao.getUsers();
 			for (User user : users) {
@@ -87,53 +146,6 @@ public class Registration extends HttpServlet {
 			// request.setAttribute("login_exists", Boolean.FALSE);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		User newUser = new User();
-		newUser.setFirstName(firstName);
-		newUser.setLastName(lastName);
-		newUser.setLogin(login);
-		newUser.setEmail(email);
-		try {
-			String hash = PasswordHash.createHash(password);
-			newUser.setPassword(hash);
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
-			e1.printStackTrace();
-			getServletContext().getRequestDispatcher("/registration.jsp")
-					.forward(request, response);
-			return;
-		}
-		newUser.setRole(role);
-		newUser.setStatus(status);
-
-		try {
-			userDao.addUser(newUser);
-			System.out.println("New user was saved in database");
-			// getServletContext().getRequestDispatcher("/successLogin.jsp").forward(request,
-			// response);
-			String[] recipients = { email };
-			String subject = "Подтверждение регистрации	";
-			
-			String info = this.getServletContext().getContextPath();
-			
-			String text = "Вы зарегистрированиы на сайте CMSPuzzle-1.0-SNAPSHOT <br>"
-					+ "Для потверждения регистрации пройдите по ссылке "
-					+"http://"+ HOST + ":" + request.getServerPort()+ info+"/successLogin.jsp?confirmationCode=3";
-			try {
-				new SendMessage().sendMessage(recipients, subject, text);
-				System.out.println("Message was sent");
-			} catch (MessagingException |SecurityException e) {
-				System.out.println("Message was not sent");
-				e.printStackTrace();
-			} finally {
-				getServletContext().getRequestDispatcher("/").forward(request,
-						response);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-			getServletContext().getRequestDispatcher("/error.jsp").forward(
-					request, response);
 		}
 	}
 }

@@ -10,9 +10,12 @@ public interface UserDao{
 	void addUser(User user) throws SQLException;
 
 	User getUser(int id) throws SQLException;
+	
+	User getUserByProperty(String propertyName, Object propertyValue) throws SQLException;
 
 	List<User> getUsers() throws SQLException;
 	
+	void updateUser(User user) throws SQLException;
+	
 	void deleteUser(User user) throws SQLException;
-
 }

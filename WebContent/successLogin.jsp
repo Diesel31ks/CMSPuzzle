@@ -8,24 +8,19 @@
 <title>Registration was successful!</title>
 </head>
 <body>
+	<h1>Your registration was successful!</h1>
 	<%
-		String firstName = (String) request.getAttribute("firstname");
-		String lastName = (String) request.getAttribute("lastname");
-		session.setAttribute("firstname", firstName);
-		session.setAttribute("lastname", lastName);
+		String firstname = (String)request.getAttribute("firstname");
+		String lastname = (String)request.getAttribute("lastname");
+		if (firstname==null)
+			firstname="noname";
+		if (lastname==null)
+			lastname="nolastname";
 		// 		out.println(login + " "+password);
+		session.setAttribute("firstname", firstname);
+		session.setAttribute("lastname", lastname);
+	out.println("Welcome " + firstname +" "+lastname +" <br/> <a href=\"logout.jsp\" >Logout</a>");
 	%>
-	<table>
-		<tr>
-			<td>First name:</td>
-			<td><%=firstName%></td>
-		</tr>
-		<tr>
-			<td>Last name:</td>
-			<td><%=lastName%></td>
-		</tr>
-	</table>
-	<%out.println("Welcome  "+firstName +" "+lastName+"<br/> <a href=\"logout.jsp\" >Logout</a>");%>
 	<br/>
 	<a href="./">Main page</a>
 </body>

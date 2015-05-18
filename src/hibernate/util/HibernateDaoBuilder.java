@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 public class HibernateDaoBuilder{
 	private HibernateDaoBuilder(){}
@@ -23,29 +24,60 @@ public class HibernateDaoBuilder{
 		}
 	}
 	
-	public static Table getTableValue(int id, Class<? extends Table> obj) throws SQLException {
+	public static void updateTableValue(Table table) throws SQLException {
 		Session session = null;
-		Table table = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			table = (Table) session.get(obj, id);
+			session.update(table);
 			session.getTransaction().commit();
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
 			}
 		}
-		return table;
 	}
 	
-	public static List<? extends Table> getTableValues(Class<? extends Table> obj) throws SQLException {
+	public static Table getTableValue(int id, Table table) throws SQLException {
+		Session session = null;
+		Table newTable = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			newTable = (Table) session.get(table.getClass(), id);
+			session.getTransaction().commit();
+		} finally {
+			if ((session != null) && (session.isOpen())) {
+				session.close();
+			}
+		}
+		return newTable;
+	}
+	
+	public static Table getTableValueByProperty(String propertyName, Object propertyValue, Table table) throws SQLException {
+		Session session = null;
+		Table newTable = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			newTable = (Table)session.createCriteria(table.getClass()).add(Restrictions.eq(propertyName, propertyValue)).uniqueResult();
+			session.getTransaction().commit();
+		} finally {
+			if ((session != null) && (session.isOpen())) {
+				session.close();
+			}
+		}
+		return newTable;
+	}
+	
+	public static List<? extends Table> getTableValues(Table table) throws SQLException {
 		Session session = null;
 		List<? extends Table> tableValues = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			tableValues = session.createCriteria(obj.getClass()).list();
+			System.out.println(table.getClass().toString());
+			tableValues = session.createCriteria(table.getClass()).list();
 			session.getTransaction().commit();
 		} finally {
 			if ((session != null) && (session.isOpen())) {

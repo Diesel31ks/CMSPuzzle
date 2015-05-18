@@ -1,7 +1,6 @@
 package hibernate.dao;
 
 import hibernate.tables.Content;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,8 +10,12 @@ public interface ContentDao{
 
 	Content getContent(int id) throws SQLException;
 
+	Content getContentByProperty(String propertyName, Object propertyValue) throws SQLException;
+	
 	List<Content> getContents() throws SQLException;
 
+	void updateContent(Content content) throws SQLException;
+	
 	void deleteContent(Content content) throws SQLException;
-
+	
 }

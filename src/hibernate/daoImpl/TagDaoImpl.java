@@ -2,77 +2,35 @@ package hibernate.daoImpl;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import org.hibernate.Session;
-
 import hibernate.dao.TagDao;
 import hibernate.tables.Tag;
-import hibernate.util.HibernateUtil;
+import hibernate.util.HibernateDaoBuilder;
 
 public class TagDaoImpl implements TagDao {
 
-	@Override
 	public void addTag(Tag tag) throws SQLException {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.save(tag);
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
+		HibernateDaoBuilder.saveTableValue(tag);
 	}
 
-	@Override
 	public Tag getTag(int id) throws SQLException {
-		Session session = null;
-		Tag tag = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			tag = (Tag) session.load(Tag.class, id);
-			session.getTransaction().commit();
-		}finally{
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
-		return tag;
+		return (Tag)HibernateDaoBuilder.getTableValue(id, new Tag());	
 	}
 
-	@Override
 	public List<Tag> getTags() throws SQLException {
-		Session session = null;
-		List<Tag> tags = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			tags = session.createCriteria(Tag.class).list();
-			session.getTransaction().commit();
-		}finally{
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
-		return tags;
+		return (List<Tag>)HibernateDaoBuilder.getTableValues(new Tag());
 	}
 
-	@Override
 	public void deleteTag(Tag tag) throws SQLException {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.delete(tag);
-			session.getTransaction().commit();
-		}finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
+		HibernateDaoBuilder.deleteTableValue(tag);
+	}
+
+	public Tag getTagByProperty(String propertyName, Object propertyValue)
+			throws SQLException {
+		return (Tag)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new Tag());
+	}
+
+	public void updateTag(Tag tag) throws SQLException {
+		HibernateDaoBuilder.updateTableValue(tag);
 	}
 
 }

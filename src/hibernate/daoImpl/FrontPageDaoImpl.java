@@ -3,76 +3,35 @@ package hibernate.daoImpl;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.hibernate.Session;
-
 import hibernate.dao.FrontPageDao;
 import hibernate.tables.FrontPage;
-import hibernate.util.HibernateUtil;
+import hibernate.util.HibernateDaoBuilder;
 
 public class FrontPageDaoImpl implements FrontPageDao {
 
-	@Override
 	public void addFrontPageContent(FrontPage frontPage) throws SQLException {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.save(frontPage);
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
+		HibernateDaoBuilder.saveTableValue(frontPage);
 	}
 
-	@Override
-	public FrontPage getFrontPageContent(int id) throws SQLException {
-		Session session = null;
-		FrontPage frontPage = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			frontPage = (FrontPage) session.get(FrontPage.class, id);
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
-		return frontPage;
+	public FrontPage getFrontPage(int id) throws SQLException {
+		return (FrontPage)HibernateDaoBuilder.getTableValue(id, new FrontPage());
 	}
 
-	@Override
-	public List<FrontPage> getFrontPageContents() throws SQLException {
-		Session session = null;
-		List<FrontPage> contents = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			contents = session.createCriteria(FrontPage.class).list();
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
-		return contents;
+	public List<FrontPage> getFrontPages() throws SQLException {
+		return (List<FrontPage>)HibernateDaoBuilder.getTableValues(new FrontPage());
 	}
 
-	@Override
-	public void deleteFrontPageContent(FrontPage frontPage) throws SQLException {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.delete(frontPage);
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
+	public void deleteFrontPage(FrontPage frontPage) throws SQLException {
+		HibernateDaoBuilder.deleteTableValue(frontPage);
+	}
+
+	public FrontPage getFrontPageByProperty(String propertyName,
+			Object propertyValue) throws SQLException {
+		return (FrontPage)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new FrontPage());
+	}
+
+	public void updateFrontPage(FrontPage frontPage) throws SQLException {
+		HibernateDaoBuilder.updateTableValue(frontPage);
 	}
 
 }

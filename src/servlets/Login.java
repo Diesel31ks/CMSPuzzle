@@ -24,48 +24,59 @@ public class Login extends HttpServlet {
 	UserDao userDaoImpl = factory.getUserDao();
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 		request.setAttribute("login", login);
 		request.setAttribute("password", password);
 		System.out.println("Login servlet working...");
-		try{
-			if ((login == "") || (login == null) || (password == "")|| (password == null)||
-				(password.length()>100) || (password.length()<8) || (password.contains(" ")) || 
-				(password.contains("/r"))||(password.contains("/n"))){
-//				request.setAttribute("access_wrong", true);
-				getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
+		try {
+			if ((login == "") || (login == null) || (password == "")
+					|| (password == null) || (password.length() > 100)
+					|| (password.length() < 8) || (password.contains(" "))
+					|| (password.contains("/r")) || (password.contains("/n"))) {
+				// request.setAttribute("access_wrong", true);
+				getServletContext().getRequestDispatcher("/login.jsp").forward(
+						request, response);
 				return;
 			}
 			List<User> users = null;
+			User test = null;
 			try {
+				test = userDaoImpl.getUserByProperty("login","Diesel31ks");
+				System.out.println(test);
+				test.setLastName("Khromov");
+				userDaoImpl.updateUser(test);
+				
 				users = userDaoImpl.getUsers();
 				if ((users != null) && (!users.isEmpty())) {
 					for (User user : users) {
-						if (user.getLogin().equals(login) && validatePasswords(password, user)) {
+						if (user.getLogin().equals(login)&& validatePasswords(password, user)) {
 							request.setAttribute("firstname", user.getFirstName());
 							request.setAttribute("lastname", user.getLastName());
 							request.setAttribute("access_wrong", false);
-								/*
-								 * TODO add change user info into DAO
-								 */
-//								user.setStatus(UserStatus.available);
-//								userDaoImpl.
-								getServletContext().getRequestDispatcher("/successLogin.jsp").forward(request, response);
-								break;
-							} else {
-								request.setAttribute("access_wrong", true);
-								getServletContext().getRequestDispatcher("/relogin.jsp").forward(request, response);
-								break;
-							}
-						}	
+							/*
+							 * TODO add change user info into DAO
+							 */
+							// user.setStatus(UserStatus.available);
+							// userDaoImpl.
+							getServletContext().getRequestDispatcher("/successLogin.jsp").forward(request,response);
+							break;
+						} else {
+							request.setAttribute("access_wrong", true);
+							getServletContext().getRequestDispatcher(
+									"/relogin.jsp").forward(request, response);
+							break;
+						}
 					}
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}catch (Exception e) {
-			getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+		} catch (Exception e) {
+			getServletContext().getRequestDispatcher("/error.jsp").forward(
+					request, response);
 		}
 	}
 

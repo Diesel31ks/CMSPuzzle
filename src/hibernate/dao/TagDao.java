@@ -1,7 +1,6 @@
 package hibernate.dao;
 
 import hibernate.tables.Tag;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,7 +9,11 @@ public interface TagDao{
 
 	Tag getTag(int id) throws SQLException;
 
+	Tag getTagByProperty(String propertyName, Object propertyValue) throws SQLException;
+	
 	List<Tag> getTags() throws SQLException;
 
+	void updateTag(Tag tag) throws SQLException;
+	
 	void deleteTag(Tag tag) throws SQLException;
 }

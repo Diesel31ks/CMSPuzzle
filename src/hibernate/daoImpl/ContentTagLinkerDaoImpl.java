@@ -2,79 +2,35 @@ package hibernate.daoImpl;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import org.hibernate.Session;
-
 import hibernate.dao.ContentTagLinkerDao;
 import hibernate.tables.ContentTagLinker;
-import hibernate.tables.User;
-import hibernate.util.HibernateUtil;
+import hibernate.util.HibernateDaoBuilder;
 
 public class ContentTagLinkerDaoImpl implements ContentTagLinkerDao {
 
-	@Override
 	public void addLink(ContentTagLinker contentTagLinker) throws SQLException {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.save(contentTagLinker);
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
-
+		HibernateDaoBuilder.saveTableValue(contentTagLinker);
 	}
 
-	@Override
 	public ContentTagLinker getLink(int id) throws SQLException {
-		Session session = null;
-		ContentTagLinker contentTagLinker = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			contentTagLinker = (ContentTagLinker) session.get(ContentTagLinker.class, id);
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
-		return contentTagLinker;
+		return (ContentTagLinker)HibernateDaoBuilder.getTableValue(id, new ContentTagLinker());
 	}
 
-	@Override
 	public List<ContentTagLinker> getLinks() throws SQLException {
-		Session session = null;
-		List<ContentTagLinker> contentTagLinkers= null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			contentTagLinkers = session.createCriteria(ContentTagLinker.class).list();
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
-		return contentTagLinkers;
+		return (List<ContentTagLinker>) HibernateDaoBuilder.getTableValues(new ContentTagLinker());
 	}
 
-	@Override
 	public void deleteLink(ContentTagLinker contentTagLinker) throws SQLException {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.delete(contentTagLinker);
-			session.getTransaction().commit();
-		} catch (Exception e) {
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
+		HibernateDaoBuilder.deleteTableValue(contentTagLinker);
+	}
+
+	public ContentTagLinker getContentTagLinkerByProperty(String propertyName,
+			Object propertyValue) throws SQLException {
+		return (ContentTagLinker)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new ContentTagLinker());
+	}
+
+	public void updateLink(ContentTagLinker contentTagLinker)
+			throws SQLException {
+		HibernateDaoBuilder.updateTableValue(contentTagLinker);
 	}
 }
