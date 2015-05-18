@@ -85,7 +85,8 @@ public class Registration extends HttpServlet {
 					+"http://"+ ServletUtil.HOST + ":" + request.getServerPort()
 					+ info+"/successLogin?login=" + newUser.getLogin()
 					+ "&confirmationCode=" + newUser.getConfirmCode();
-			ServletUtil.sendMessage(request, response, recipients, subject, text);
+			ServletUtil.sendMessage(recipients, subject, text);
+			request.getServletContext().getRequestDispatcher("/").forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			getServletContext().getRequestDispatcher("/error.jsp").forward(

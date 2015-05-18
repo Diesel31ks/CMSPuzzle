@@ -13,19 +13,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/successRegistration")
-public class SuccessRegistration extends HttpServlet {
+@WebServlet("/successRestore")
+public class SuccessRestore extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao userDao = HibernateFactory.getInstance().getUserDao();
        
-    public SuccessRegistration() {
+    public SuccessRestore() {
     }
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		String login = (String) request.getAttribute("login");
-		String newRestoreCode = (String) request.getAttribute("restoreCode");
-		
+		String login = (String) request.getParameter("login");
+		String newRestoreCode = (String) request.getParameter("restoreCode");
+		System.out.println("SuccessRestore servlet working...");
 		User user = null;
 		if ((newRestoreCode != null) && (newRestoreCode != "")&&
 				(login!= null) && (login != "")) {
@@ -41,12 +41,18 @@ public class SuccessRegistration extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				request.getRequestDispatcher("/error.jsp").forward(request, response);
+				return;
 			}
 			if ((savedRestoreCode != null) && (newRestoreCode.equals(savedRestoreCode))) {
 				System.out.println("OK!");
 				request.getRequestDispatcher("/successLogin.jsp").forward(request, response);
 			} else
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
+				return;
+		}else{
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+			return;
 		}
 		
 	}
