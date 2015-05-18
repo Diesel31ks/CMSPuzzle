@@ -25,6 +25,10 @@ public class FrontPageDaoImpl implements FrontPageDao {
 		HibernateDaoBuilder.deleteTableValue(frontPage);
 	}
 
+	/**
+	 * @propertyName is a field in Object which is assigned with DB table. 
+	 * @propertyValue is a value of propertyName 
+	 */
 	public FrontPage getFrontPageByProperty(String propertyName,
 			Object propertyValue) throws SQLException {
 		return (FrontPage)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new FrontPage());

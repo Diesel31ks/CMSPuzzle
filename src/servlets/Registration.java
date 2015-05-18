@@ -11,9 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 
-import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,14 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import authorization.EmailValidate;
 import authorization.PasswordHash;
-import authorization.SendMessage;
 
 @WebServlet(description = "to register a new user", urlPatterns = { "/registration" })
 public class Registration extends HttpServlet {
-	private static final String HOST = "10.9.2.159";
-	private static final long serialVersionUID = 1L;
-	HibernateFactory hibernateFactory = HibernateFactory.getInstance();
-	UserDao userDao = hibernateFactory.getUserDao();
+	private static final long serialVersionUID = 5393044129773580802L;
+	
+	UserDao userDao = HibernateFactory.getInstance().getUserDao();
 
 	@Override
 	protected void service(HttpServletRequest request,
@@ -40,8 +36,6 @@ public class Registration extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String passwordConfirm = request.getParameter("password_confirmation");
-		UserRole role = UserRole.UNCONFIRMED;
-		UserStatus status = UserStatus.AVAILABLE;
 		System.out.println("Registration servlet working...");
 
 		request.setAttribute("firstname", firstName);
@@ -71,52 +65,27 @@ public class Registration extends HttpServlet {
 			return;
 		}
 		// request.setAttribute("passwords_not_equal", Boolean.FALSE);.
-		
 		checkingLoginExists(request, response, login);
-		
-		User newUser = new User();
-		newUser.setFirstName(firstName);
-		newUser.setLastName(lastName);
-		newUser.setLogin(login);
-		newUser.setEmail(email);
-		newUser.setRole(role);
-		newUser.setStatus(status);
-		String confirmCode, restoreCode;
+		User newUser = registerUser(firstName, lastName, login, email);
 		try {
-			String hash = PasswordHash.createHash(password);
-			confirmCode = String.valueOf( new Random().nextInt(1_000_000_000));
-			restoreCode = String.valueOf( new Random().nextInt(1_000_000_000));
-			newUser.setPassword(hash);
-			newUser.setConfirmCode(confirmCode);
-			newUser.setRestoreCode(restoreCode);
+			newUser.setPassword(PasswordHash.createHash(password));
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
 			e1.printStackTrace();
-			getServletContext().getRequestDispatcher("/registration.jsp")
-					.forward(request, response);
+			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
 			return;
 		}
-
 		try {
 			userDao.addUser(newUser);
 			System.out.println("New user was saved in database");
-			// getServletContext().getRequestDispatcher("/successLogin.jsp").forward(request,
-			// response);
 			String[] recipients = { email };
 			String subject = "Подтверждение регистрации";
 			String info = this.getServletContext().getContextPath();
 			String text = "Вы зарегистрированиы на сайте "+info
 					+ "Для потверждения регистрации пройдите по ссылке "
-					+"http://"+ HOST + ":" + request.getServerPort()+ info+"/SuccessRegistration?confirmationCode="+confirmCode;
-			try {
-				new SendMessage().sendMessage(recipients, subject, text);
-				System.out.println("Message was sent");
-			} catch (MessagingException |SecurityException e) {
-				System.out.println("Message was not sent");
-				e.printStackTrace();
-			} finally {
-				getServletContext().getRequestDispatcher("/").forward(request,
-						response);
-			}
+					+"http://"+ ServletUtil.HOST + ":" + request.getServerPort()
+					+ info+"/successLogin?login=" + newUser.getLogin()
+					+ "&confirmationCode=" + newUser.getConfirmCode();
+			ServletUtil.sendMessage(request, response, recipients, subject, text);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			getServletContext().getRequestDispatcher("/error.jsp").forward(
@@ -126,6 +95,20 @@ public class Registration extends HttpServlet {
 			getServletContext().getRequestDispatcher("/error.jsp").forward(
 					request, response);
 		}
+	}
+
+	private User registerUser(String firstName, String lastName, String login,
+			String email) {
+		User user = new User();
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setLogin(login);
+		user.setEmail(email);
+		user.setRole(UserRole.UNCONFIRMED);
+		user.setStatus(UserStatus.AVAILABLE);
+		user.setConfirmCode(String.valueOf(ServletUtil.getRandomCode()));
+		user.setRestoreCode(String.valueOf(ServletUtil.getRandomCode()));
+		return user;
 	}
 
 	private void checkingLoginExists(HttpServletRequest request,

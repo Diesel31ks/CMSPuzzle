@@ -23,7 +23,11 @@ public class TagDaoImpl implements TagDao {
 	public void deleteTag(Tag tag) throws SQLException {
 		HibernateDaoBuilder.deleteTableValue(tag);
 	}
-
+	
+	/**
+	 * @propertyName is a field in Object which is assigned with DB table. 
+	 * @propertyValue is a value of propertyName 
+	 */
 	public Tag getTagByProperty(String propertyName, Object propertyValue)
 			throws SQLException {
 		return (Tag)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new Tag());

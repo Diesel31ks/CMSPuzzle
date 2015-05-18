@@ -24,6 +24,10 @@ public class ContentDaoImpl implements ContentDao{
 		HibernateDaoBuilder.deleteTableValue(content);
 	}
 
+	/**
+	 * @propertyName is a field in Object which is assigned with DB table. 
+	 * @propertyValue is a value of propertyName 
+	 */
 	public Content getContentByProperty(String propertyName,
 			Object propertyValue) throws SQLException {
 		return (Content)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new Content());

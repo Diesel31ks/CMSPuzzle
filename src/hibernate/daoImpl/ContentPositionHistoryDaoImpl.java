@@ -25,7 +25,11 @@ public class ContentPositionHistoryDaoImpl implements ContentPositionHistoryDao{
 			ContentPositionHistory contentPositionHistory) throws SQLException {
 		HibernateDaoBuilder.deleteTableValue(contentPositionHistory);
 	}
-
+	
+	/**
+	 * @propertyName is a field in Object which is assigned with DB table. 
+	 * @propertyValue is a value of propertyName 
+	 */
 	public ContentPositionHistory getContentPositionHistoryByProperty(
 			String propertyName, Object propertyValue) throws SQLException {
 		return (ContentPositionHistory)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new ContentPositionHistory());

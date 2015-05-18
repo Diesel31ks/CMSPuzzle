@@ -73,16 +73,10 @@
 				<td>Password confirmation</td>
 				<td><input name="password_confirmation" type="password"></input></td>
 			</tr>
-			<!-- 			<tr> -->
-			<!-- 				<td>Role</td> -->
-			<%-- 				<td><input name="role" value="<%=role%>"> </input></td> --%>
-			<!-- 			</tr> -->
-
 			<tr>
 				<td colspan="2"><input type="submit" value="submit"> </input></td>
 			</tr>
 		</table>
-
 	</form>
 </body>
 </html>
