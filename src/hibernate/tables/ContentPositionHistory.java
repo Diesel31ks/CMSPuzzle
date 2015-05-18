@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,29 +20,35 @@ public class ContentPositionHistory implements Serializable, hibernate.tables.Ta
 	@Column(name = "cph_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id; 
+	
 	@Column(name = "cph_date")
 	private Timestamp date;
+	
 	@Column(name = "cph_comment")
 	private String comment;
 	
-	private Integer contentId;
+	@ManyToOne 								//(targetEntity = Content.class)
+	@JoinColumn(name = "cph_content")		//field name in table
+	private Content contentId;
 	
-	private Integer userId;
-	
+	@ManyToOne 								//(targetEntity = Content.class)
+	@JoinColumn(name = "cph_user")			//field name in table
+	private User userId;
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime
-				* result
-				+ ((contentId == null) ? 0 : contentId
-						.hashCode());
+		result = prime * result
+				+ ((contentId == null) ? 0 : contentId.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -79,6 +87,7 @@ public class ContentPositionHistory implements Serializable, hibernate.tables.Ta
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
 		return new StringBuffer()
@@ -89,6 +98,4 @@ public class ContentPositionHistory implements Serializable, hibernate.tables.Ta
 				.append(", userId=").append(userId)
 				.append("]").toString();
 	}
-	
-	
 }

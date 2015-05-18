@@ -18,5 +18,6 @@
         <mapping class="hibernate.tables.Content" />
         <mapping class="hibernate.tables.ContentTagLinker" />
         <mapping class="hibernate.tables.FrontPage" />
+        <mapping class="hibernate.tables.ContentPositionHistory" />
     </session-factory>
 </hibernate-configuration>

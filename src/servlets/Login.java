@@ -3,6 +3,7 @@ package servlets;
 import hibernate.dao.UserDao;
 import hibernate.general.HibernateFactory;
 import hibernate.tables.User;
+import hibernate.tables.userInfo.UserStatus;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -42,13 +43,7 @@ public class Login extends HttpServlet {
 				return;
 			}
 			List<User> users = null;
-			User test = null;
 			try {
-				test = userDaoImpl.getUserByProperty("login","Diesel31ks");
-				System.out.println(test);
-				test.setLastName("Khromov");
-				userDaoImpl.updateUser(test);
-				
 				users = userDaoImpl.getUsers();
 				if ((users != null) && (!users.isEmpty())) {
 					for (User user : users) {
@@ -56,11 +51,8 @@ public class Login extends HttpServlet {
 							request.setAttribute("firstname", user.getFirstName());
 							request.setAttribute("lastname", user.getLastName());
 							request.setAttribute("access_wrong", false);
-							/*
-							 * TODO add change user info into DAO
-							 */
-							// user.setStatus(UserStatus.available);
-							// userDaoImpl.
+							user.setStatus(UserStatus.AVAILABLE);
+							userDaoImpl.updateUser(user);
 							getServletContext().getRequestDispatcher("/successLogin.jsp").forward(request,response);
 							break;
 						} else {

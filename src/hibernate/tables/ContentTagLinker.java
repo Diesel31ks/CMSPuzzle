@@ -29,11 +29,11 @@ public class ContentTagLinker implements Serializable, hibernate.tables.Table{
 	}
 
 	@ManyToOne												//(targetEntity = Content.class)
-	@JoinColumn(name = "c_id")								//как поле называется в таблице
+	@JoinColumn(name = "c_id")								//field name in table
 	private Content content;
 	
 	@ManyToOne												//(targetEntity = Tag.class)
-	@JoinColumn(name = "t_id")								//как поле называется в таблице
+	@JoinColumn(name = "t_id")								//field name in table
 	private Tag tag;
 
 	public Content getContent() {

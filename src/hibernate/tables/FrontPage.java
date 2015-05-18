@@ -21,12 +21,8 @@ public class FrontPage implements Serializable, hibernate.tables.Table{
 	@Column(name = "f_id")  
 	private Integer id;
 	
-	@ManyToOne							//(targetEntity = Users.class)
-	@JoinColumn(name = "c_author")		//как поле называется в таблице
-	private User author;	
-	
 	@ManyToOne 							//(targetEntity = Content.class)
-	@JoinColumn(name = "f_content")		//как поле называется в таблице	
+	@JoinColumn(name = "f_content")		//field name in table
 	private Content contentId;
 	
 	@Column(name="f_order")
@@ -38,14 +34,6 @@ public class FrontPage implements Serializable, hibernate.tables.Table{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public User getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(User author) {
-		this.author = author;
 	}
 
 	public Content getContentId() {
@@ -68,7 +56,6 @@ public class FrontPage implements Serializable, hibernate.tables.Table{
 	@Override
 	public String toString() {
 		return new StringBuffer().append("FrontPage [id=").append(id)
-				.append(", author=").append(author)
 				.append(", contentId=").append(contentId)
 				.append(", order=").append(order)
 				.append("]").toString();
@@ -78,9 +65,7 @@ public class FrontPage implements Serializable, hibernate.tables.Table{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result
-				+ ((contentId == null) ? 0 : contentId.hashCode());
+		result = prime * result + ((contentId == null) ? 0 : contentId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((order == null) ? 0 : order.hashCode());
 		return result;
@@ -95,11 +80,6 @@ public class FrontPage implements Serializable, hibernate.tables.Table{
 		if (getClass() != obj.getClass())
 			return false;
 		FrontPage other = (FrontPage) obj;
-		if (author == null) {
-			if (other.author != null)
-				return false;
-		} else if (!author.equals(other.author))
-			return false;
 		if (contentId == null) {
 			if (other.contentId != null)
 				return false;

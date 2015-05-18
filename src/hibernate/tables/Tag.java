@@ -33,7 +33,7 @@ public class Tag implements Serializable, hibernate.tables.Table{
 	@Column (name = "t_rate")
 	private Byte rate;
 	
-	@OneToMany(mappedBy="tag")		//ссылка на поле в объекте ContentTagLinker
+	@OneToMany(mappedBy="tag")		//reference on field in object ContentTagLinker
 	private Set<ContentTagLinker>tags;
 
 	public Integer getId() {
