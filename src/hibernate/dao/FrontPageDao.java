@@ -10,7 +10,7 @@ public interface FrontPageDao{
 
 	FrontPage getFrontPage(int id) throws SQLException;
 
-	FrontPage getFrontPageByProperty(String propertyName, Object propertyValue) throws SQLException;
+	List<FrontPage> getFrontPagesByProperty(String propertyName, Object propertyValue) throws SQLException;
 	
 	List<FrontPage> getFrontPages() throws SQLException;
 	

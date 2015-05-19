@@ -28,9 +28,9 @@ public class ContentTagLinkerDaoImpl implements ContentTagLinkerDao {
 	 * @propertyName is a field in Object which is assigned with DB table. 
 	 * @propertyValue is a value of propertyName 
 	 */
-	public ContentTagLinker getContentTagLinkerByProperty(String propertyName,
+	public List<ContentTagLinker> getContentTagLinkersByProperty(String propertyName,
 			Object propertyValue) throws SQLException {
-		return (ContentTagLinker)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new ContentTagLinker());
+		return (List<ContentTagLinker>)HibernateDaoBuilder.getTableValuesByProperty(propertyName, propertyValue, new ContentTagLinker());
 	}
 
 	public void updateLink(ContentTagLinker contentTagLinker)

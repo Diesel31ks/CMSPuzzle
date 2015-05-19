@@ -28,9 +28,9 @@ public class ContentDaoImpl implements ContentDao{
 	 * @propertyName is a field in Object which is assigned with DB table. 
 	 * @propertyValue is a value of propertyName 
 	 */
-	public Content getContentByProperty(String propertyName,
+	public List<Content> getContentsByProperty(String propertyName,
 			Object propertyValue) throws SQLException {
-		return (Content)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new Content());
+		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty(propertyName, propertyValue, new Content());
 	}
 
 	public void updateContent(Content content) throws SQLException {

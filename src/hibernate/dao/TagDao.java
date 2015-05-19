@@ -9,7 +9,7 @@ public interface TagDao{
 
 	Tag getTag(int id) throws SQLException;
 
-	Tag getTagByProperty(String propertyName, Object propertyValue) throws SQLException;
+	List<Tag> getTagsByProperty(String propertyName, Object propertyValue) throws SQLException;
 	
 	List<Tag> getTags() throws SQLException;
 

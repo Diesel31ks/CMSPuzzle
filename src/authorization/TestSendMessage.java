@@ -16,7 +16,7 @@ public class TestSendMessage {
 			String confirmCode = user.getConfirmCode();
 			String message = "Вы зарегистрированиы на сайте CMSPuzzle-1_sasha."
 					+ "Для потверждения регистрации пройдите по ссылке "
-					+"http://10.9.2.159:8090/CMSPuzzle-1_sasha/SuccessLogin?confirmationCode="+
+					+"http://10.9.2.159:8090/CMSPuzzle-1_sasha/SuccessRegistration?confirmationCode="+
 					confirmCode;
 			new SendMessage().sendMessage(recipients, subject, message );
 		} catch (MessagingException e) {

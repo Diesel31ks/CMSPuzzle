@@ -29,9 +29,9 @@ public class FrontPageDaoImpl implements FrontPageDao {
 	 * @propertyName is a field in Object which is assigned with DB table. 
 	 * @propertyValue is a value of propertyName 
 	 */
-	public FrontPage getFrontPageByProperty(String propertyName,
+	public List<FrontPage> getFrontPagesByProperty(String propertyName,
 			Object propertyValue) throws SQLException {
-		return (FrontPage)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new FrontPage());
+		return (List<FrontPage>)HibernateDaoBuilder.getTableValuesByProperty(propertyName, propertyValue, new FrontPage());
 	}
 
 	public void updateFrontPage(FrontPage frontPage) throws SQLException {

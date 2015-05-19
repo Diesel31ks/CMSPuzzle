@@ -28,9 +28,9 @@ public class TagDaoImpl implements TagDao {
 	 * @propertyName is a field in Object which is assigned with DB table. 
 	 * @propertyValue is a value of propertyName 
 	 */
-	public Tag getTagByProperty(String propertyName, Object propertyValue)
+	public List<Tag> getTagsByProperty(String propertyName, Object propertyValue)
 			throws SQLException {
-		return (Tag)HibernateDaoBuilder.getTableValueByProperty(propertyName, propertyValue, new Tag());
+		return (List<Tag>)HibernateDaoBuilder.getTableValuesByProperty(propertyName, propertyValue, new Tag());
 	}
 
 	public void updateTag(Tag tag) throws SQLException {

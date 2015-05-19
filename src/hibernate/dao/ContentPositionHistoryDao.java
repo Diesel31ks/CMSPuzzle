@@ -9,7 +9,7 @@ public interface ContentPositionHistoryDao {
 
 	ContentPositionHistory getContentPositionHistory(int id) throws SQLException;
 	
-	ContentPositionHistory getContentPositionHistoryByProperty(String propertyName, Object propertyValue) throws SQLException;
+	List<ContentPositionHistory> getContentPositionHistoryByProperty(String propertyName, Object propertyValue) throws SQLException;
 
 	List<ContentPositionHistory> getContentPositionHistory() throws SQLException;
 

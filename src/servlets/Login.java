@@ -20,9 +20,12 @@ import authorization.PasswordHash;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	HibernateFactory factory = HibernateFactory.getInstance();
-	UserDao userDaoImpl = factory.getUserDao();
+	private static final String SUCCESS_LOGIN = "/successLogin.jsp";
+	private static final String RELOGIN = "/relogin.jsp";
+	private static final String ERROR = "/error.jsp";
+	private static final String LOGIN = "/login.jsp";
+	private static final long serialVersionUID = -4050086711880871778L;
+	UserDao userDaoImpl = HibernateFactory.getInstance().getUserDao();
 
 	@Override
 	protected void service(HttpServletRequest request,
@@ -38,37 +41,35 @@ public class Login extends HttpServlet {
 					|| (password.length() < 8) || (password.contains(" "))
 					|| (password.contains("/r")) || (password.contains("/n"))) {
 				// request.setAttribute("access_wrong", true);
-				getServletContext().getRequestDispatcher("/login.jsp").forward(
+				getServletContext().getRequestDispatcher(LOGIN).forward(
 						request, response);
 				return;
 			}
 			List<User> users = null;
 			try {
-				users = userDaoImpl.getUsers();
-				if ((users != null) && (!users.isEmpty())) {
-					for (User user : users) {
-						if (user.getLogin().equals(login)&& validatePasswords(password, user)) {
-							request.setAttribute("firstname", user.getFirstName());
-							request.setAttribute("lastname", user.getLastName());
-							request.setAttribute("access_wrong", false);
-							user.setStatus(UserStatus.AVAILABLE);
-							userDaoImpl.updateUser(user);
-							getServletContext().getRequestDispatcher("/successLogin.jsp").forward(request,response);
-							break;
-						} else {
-							request.setAttribute("access_wrong", true);
-							getServletContext().getRequestDispatcher(
-									"/relogin.jsp").forward(request, response);
-							break;
-						}
+				users = userDaoImpl.getUsersByProperty("login", login);
+				if ((users != null) && (!users.isEmpty()) && users.size() == 1) {
+					User user = users.get(0);
+					if (validatePasswords(password, user)) {
+						request.setAttribute("firstname", user.getFirstName());
+						request.setAttribute("lastname", user.getLastName());
+						request.setAttribute("access_wrong", false);
+						user.setStatus(UserStatus.AVAILABLE);
+						userDaoImpl.updateUser(user);
+						getServletContext().getRequestDispatcher(SUCCESS_LOGIN).forward(request, response);
+						return;
+					} else {
+						request.setAttribute("access_wrong", true);
+						getServletContext().getRequestDispatcher(RELOGIN).forward(request, response);
+						return;
 					}
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} catch (Exception e) {
-			getServletContext().getRequestDispatcher("/error.jsp").forward(
-					request, response);
+			getServletContext().getRequestDispatcher(ERROR).forward(request,response);
+			return;
 		}
 	}
 

@@ -10,7 +10,7 @@ public interface ContentDao{
 
 	Content getContent(int id) throws SQLException;
 
-	Content getContentByProperty(String propertyName, Object propertyValue) throws SQLException;
+	List<Content> getContentsByProperty(String propertyName, Object propertyValue) throws SQLException;
 	
 	List<Content> getContents() throws SQLException;
 

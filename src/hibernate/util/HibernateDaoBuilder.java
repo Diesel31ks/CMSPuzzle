@@ -54,20 +54,20 @@ public class HibernateDaoBuilder{
 		return newTable;
 	}
 	
-	public static Table getTableValueByProperty(String propertyName, Object propertyValue, Table table) throws SQLException {
+	public static List<? extends Table> getTableValuesByProperty(String propertyName, Object propertyValue, Table table) throws SQLException {
 		Session session = null;
-		Table newTable = null;
+		List<? extends Table> tableValues = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			newTable = (Table)session.createCriteria(table.getClass()).add(Restrictions.eq(propertyName, propertyValue)).uniqueResult();
+			tableValues= (List<? extends Table>)session.createCriteria(table.getClass()).add(Restrictions.eq(propertyName, propertyValue)).list();
 			session.getTransaction().commit();
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
 			}
 		}
-		return newTable;
+		return tableValues;
 	}
 	
 	public static List<? extends Table> getTableValues(Table table) throws SQLException {
@@ -77,7 +77,7 @@ public class HibernateDaoBuilder{
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			System.out.println(table.getClass().toString());
-			tableValues = session.createCriteria(table.getClass()).list();
+			tableValues = (List<? extends Table>)session.createCriteria(table.getClass()).list();
 			session.getTransaction().commit();
 		} finally {
 			if ((session != null) && (session.isOpen())) {

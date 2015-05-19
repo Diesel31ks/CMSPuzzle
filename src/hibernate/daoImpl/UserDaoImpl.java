@@ -28,8 +28,8 @@ public class UserDaoImpl implements UserDao{
 	 * @propertyName is a field in Object which is assigned with DB table. 
 	 * @propertyValue is a value of propertyName 
 	 */
-	public User getUserByProperty(String propertyName, Object propertyValue) throws SQLException {
-		return (User)HibernateDaoBuilder.getTableValueByProperty(propertyName,propertyValue, new User());
+	public List<User> getUsersByProperty(String propertyName, Object propertyValue) throws SQLException {
+		return (List<User>)HibernateDaoBuilder.getTableValuesByProperty(propertyName,propertyValue, new User());
 	}
 
 	public void updateUser(User user) throws SQLException {

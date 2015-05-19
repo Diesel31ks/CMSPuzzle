@@ -11,7 +11,7 @@ public interface UserDao{
 
 	User getUser(int id) throws SQLException;
 	
-	User getUserByProperty(String propertyName, Object propertyValue) throws SQLException;
+	List<User> getUsersByProperty(String propertyName, Object propertyValue) throws SQLException;
 
 	List<User> getUsers() throws SQLException;
 	

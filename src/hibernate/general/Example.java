@@ -57,7 +57,6 @@ public class Example {
 	private static void set10FrontPages(FrontPageDao fpd) throws SQLException {
 		FrontPage frontPage = new FrontPage();
 		for (int i = 1; i < 11; i++) {
-			frontPage.setAuthor(factory.getUserDao().getUser(1));
 			frontPage.setContentId(factory.getContentDao().getContent(1));
 			frontPage.setOrder(i);
 			fpd.addFrontPageContent(frontPage);

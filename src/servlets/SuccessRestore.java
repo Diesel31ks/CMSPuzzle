@@ -5,7 +5,10 @@ import hibernate.general.HibernateFactory;
 import hibernate.tables.User;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,48 +16,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/successRestore")
-public class SuccessRestore extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private UserDao userDao = HibernateFactory.getInstance().getUserDao();
-       
-    public SuccessRestore() {
-    }
+import authorization.PasswordHash;
 
-	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+@WebServlet(name = "successRestore", urlPatterns = { "/successRestore" })
+public class SuccessRestore extends HttpServlet {
+	private static final String SUCCESS_RESTORING = "/successRestoring.jsp";
+	private static final String ERROR = "/error.jsp";
+	private static final long serialVersionUID = -8613898861506667048L;
+	private UserDao userDao = HibernateFactory.getInstance().getUserDao();
+
+	public SuccessRestore() {
+	}
+
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String password = (String) request.getParameter("password");
+		String confirmPassword = (String) request
+				.getParameter("password_confirmation");
 		String login = (String) request.getParameter("login");
-		String newRestoreCode = (String) request.getParameter("restoreCode");
 		System.out.println("SuccessRestore servlet working...");
-		User user = null;
-		if ((newRestoreCode != null) && (newRestoreCode != "")&&
-				(login!= null) && (login != "")) {
-			String savedRestoreCode = null;
+		if ((password != null) && (password != "") && (confirmPassword != null)
+				&& (confirmPassword != "") && (login != null) && (login != "")
+				&& (!password.equals(confirmPassword))) {
+			List<User> users = null;
 			try {
-				user = userDao .getUserByProperty("login", login);
-				if (user != null) {
-					savedRestoreCode = user.getRestoreCode();
-					request.setAttribute("firstname", user.getFirstName());
-					request.setAttribute("lastname", user.getLastName());
+				users = userDao.getUsersByProperty("login", login);
+				if ((users != null) && (!users.isEmpty())
+						&& (users.size() == 1)) {
+					User user = users.get(0);
+					user.setPassword(PasswordHash.createHash(password));
 					user.setRestoreCode(String.valueOf(ServletUtil.getRandomCode()));
 					userDao.updateUser(user);
+					System.out.println("Password updated successful!");
+					request.getRequestDispatcher(SUCCESS_RESTORING).forward(request, response);
+					return;
+				} else {
+					request.getRequestDispatcher(ERROR).forward(request, response);
+					return;
 				}
-			} catch (SQLException e) {
+			} catch (SQLException | NoSuchAlgorithmException
+					| InvalidKeySpecException e) {
 				e.printStackTrace();
-				request.getRequestDispatcher("/error.jsp").forward(request, response);
+				request.getRequestDispatcher(ERROR).forward(request,
+						response);
 				return;
 			}
-			if ((savedRestoreCode != null) && (newRestoreCode.equals(savedRestoreCode))) {
-				System.out.println("OK!");
-				request.getRequestDispatcher("/successLogin.jsp").forward(request, response);
-			} else
-				request.getRequestDispatcher("/error.jsp").forward(request, response);
-				return;
-		}else{
-			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher(ERROR).forward(request,
+					response);
 			return;
 		}
-		
 	}
-    
 }

@@ -24,9 +24,7 @@ import authorization.PasswordHash;
 @WebServlet(description = "to register a new user", urlPatterns = { "/registration" })
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 5393044129773580802L;
-	
 	UserDao userDao = HibernateFactory.getInstance().getUserDao();
-
 	@Override
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -60,12 +58,15 @@ public class Registration extends HttpServlet {
 			// request.setAttribute("passwords_not_equal", Boolean.TRUE);
 			// response.sendRedirect(request.getContextPath()
 			// +"/registration.jsp");
-			getServletContext().getRequestDispatcher("/registration.jsp")
-					.forward(request, response);
+			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
 			return;
 		}
 		// request.setAttribute("passwords_not_equal", Boolean.FALSE);.
-		checkingLoginExists(request, response, login);
+		if (checkingLoginExists(login)){
+			request.setAttribute("login", "");
+			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+			return;
+		}
 		User newUser = registerUser(firstName, lastName, login, email);
 		try {
 			newUser.setPassword(PasswordHash.createHash(password));
@@ -80,21 +81,24 @@ public class Registration extends HttpServlet {
 			String[] recipients = { email };
 			String subject = "Подтверждение регистрации";
 			String info = this.getServletContext().getContextPath();
-			String text = "Вы зарегистрированиы на сайте "+info
-					+ "Для потверждения регистрации пройдите по ссылке "
-					+"http://"+ ServletUtil.HOST + ":" + request.getServerPort()
-					+ info+"/successLogin?login=" + newUser.getLogin()
-					+ "&confirmationCode=" + newUser.getConfirmCode();
+			String text = "Вы зарегистрированиы на сайте " + info
+					+ ". Для потверждения регистрации пройдите по ссылке "
+					+ "http://" + ServletUtil.HOST + ":"
+					+ request.getServerPort() + info + "/successRegistration?login="
+					+ newUser.getLogin() + "&confirmationCode="
+					+ newUser.getConfirmCode();
 			ServletUtil.sendMessage(recipients, subject, text);
 			request.getServletContext().getRequestDispatcher("/").forward(request, response);
+			return;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			getServletContext().getRequestDispatcher("/error.jsp").forward(
 					request, response);
+			return;
 		} catch (Exception e) {
 			e.printStackTrace();
-			getServletContext().getRequestDispatcher("/error.jsp").forward(
-					request, response);
+			getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+			return;
 		}
 	}
 
@@ -112,24 +116,17 @@ public class Registration extends HttpServlet {
 		return user;
 	}
 
-	private void checkingLoginExists(HttpServletRequest request,
-			HttpServletResponse response, String login)
+	private boolean checkingLoginExists(String login)
 			throws ServletException, IOException {
 		try {
-			List<User> users = userDao.getUsers();
-			for (User user : users) {
-				if (user.getLogin().equals(login)) {
-					// request.setAttribute("login_exists", Boolean.TRUE);
-					// response.sendRedirect(request.getContextPath()
-					// +"/registration.jsp");
-					getServletContext().getRequestDispatcher(
-							"/registration.jsp").forward(request, response);
-					return;
-				}
+			List<User> users = userDao.getUsersByProperty("login", login);
+			if (users.size() >= 1) {
+				return true;
 			}
-			// request.setAttribute("login_exists", Boolean.FALSE);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return true;
 		}
+		return false;
 	}
 }

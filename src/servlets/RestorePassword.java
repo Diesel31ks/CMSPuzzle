@@ -18,55 +18,65 @@ import authorization.EmailValidate;
 
 @WebServlet("/restorePassword")
 public class RestorePassword extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final String RESTORE_PASSWORD = "/restorePassword.jsp";
+	private static final long serialVersionUID = 7778541242689761958L;
 	private UserDao userDao = HibernateFactory.getInstance().getUserDao();
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
 		request.setAttribute("email", email);
 
-		System.out.println("RestoringPassword servlet working...");
+		System.out.println("RestorePassword servlet working...");
 		if (!EmailValidate.validateEmail(email)) {
 			request.setAttribute("email", null);
-			getServletContext().getRequestDispatcher("/restorePassword.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher(RESTORE_PASSWORD)
+					.forward(request, response);
 			return;
 		}
-		if ((login == "") || (login == null)){
-			getServletContext().getRequestDispatcher("/restorePassword.jsp").forward(request, response);
+		if ((login == "") || (login == null)) {
+			getServletContext().getRequestDispatcher(RESTORE_PASSWORD)
+					.forward(request, response);
 			return;
 		}
-		User newUser = null;
+		List<User> newUsers = null;
+		User user = null;
 		String restoreCode = String.valueOf(ServletUtil.getRandomCode());
 		try {
-			newUser = userDao.getUserByProperty("login", login);
-			if (newUser.getEmail().equals(email)){
-				newUser.setRestoreCode(restoreCode);
-				userDao.updateUser(newUser);	
-			}else{
-				getServletContext().getRequestDispatcher("/restorePassword.jsp").forward(request, response);
+			newUsers = userDao.getUsersByProperty("login", login);
+			if (newUsers.size() == 1) {
+				user = newUsers.get(0); 
+				if (user.getEmail().equals(email)) {
+					user.setRestoreCode(restoreCode);
+					userDao.updateUser(user);
+				} else {
+					getServletContext().getRequestDispatcher(RESTORE_PASSWORD).forward(request, response);
+					return;
+				}
+			} else {
+				getServletContext().getRequestDispatcher(RESTORE_PASSWORD).forward(
+								request, response);
 				return;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			getServletContext().getRequestDispatcher("/restorePassword.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher(RESTORE_PASSWORD)
+					.forward(request, response);
 			return;
 		}
 		String[] recipients = { email };
 		String subject = "Восстановление пароля";
 		String info = this.getServletContext().getContextPath();
-		String text = "Вы зарегистрированиы на сайте "+info
-				+ "Для восстановления пароля пройдите по ссылке "
-				+"http://"+ ServletUtil.HOST + ":" + request.getServerPort()
-				+ info+"/successRestore?login=" + newUser.getLogin()
+		String text = "Вы зарегистрированиы на сайте " + info
+				+ ". Для восстановления пароля пройдите по ссылке " + "http://"
+				+ ServletUtil.HOST + ":" + request.getServerPort() + info
+				+ "/restoringPassword?login=" + user.getLogin()
 				+ "&restoreCode=" + restoreCode;
 		ServletUtil.sendMessage(recipients, subject, text);
-		/*
-		 * TODO  java.lang.IllegalStateException: Cannot forward after response has been committed
-		 */
 		request.getServletContext().getRequestDispatcher("/").forward(request, response);
+		return;
 	}
-      
+
 }
