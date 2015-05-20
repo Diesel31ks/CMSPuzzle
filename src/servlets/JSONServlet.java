@@ -1,7 +1,6 @@
 package servlets;
 
 import hibernate.dao.ContentDao;
-import hibernate.general.Example;
 import hibernate.general.HibernateFactory;
 import hibernate.tables.Content;
 
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,6 +52,7 @@ public class JSONServlet extends HttpServlet {
 			}
 			if ((contents != null) && (!contents.isEmpty())) {
 				for (Content content : contents) {
+					content.setText(null);
 					map.put(content.getId(), content);
 				}
 				json.putAll(map);
