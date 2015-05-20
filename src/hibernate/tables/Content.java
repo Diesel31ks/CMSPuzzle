@@ -170,16 +170,8 @@ public class Content implements Serializable, hibernate.tables.Table{
 		return contents;
 	}
 
-	public void setContents(Set<ContentTagLinker> contents) {
-		this.contents = contents;
-	}
-
 	public Set<FrontPage> getFrontPages() {
 		return frontPages;
-	}
-
-	public void setFrontPages(Set<FrontPage> frontPages) {
-		this.frontPages = frontPages;
 	}
 
 	public Integer getReviewCount() {
@@ -205,8 +197,6 @@ public class Content implements Serializable, hibernate.tables.Table{
 				.append(", lastEdit=").append(lastEdit)
 				.append(", url=").append(url)
 				.append(", author=").append(author)
-				.append(", contents=").append(contents)
-				.append(", frontPages=").append(frontPages)
 				.append(", reviewCount=").append(reviewCount)
 				.append("]").toString();
 	}
@@ -216,8 +206,6 @@ public class Content implements Serializable, hibernate.tables.Table{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result
-				+ ((contents == null) ? 0 : contents.hashCode());
 		result = prime * result + ((created == null) ? 0 : created.hashCode());
 		result = prime
 				* result
@@ -227,8 +215,6 @@ public class Content implements Serializable, hibernate.tables.Table{
 				* result
 				+ ((descriptionOfTags == null) ? 0 : descriptionOfTags
 						.hashCode());
-		result = prime * result
-				+ ((frontPages == null) ? 0 : frontPages.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result
@@ -259,11 +245,6 @@ public class Content implements Serializable, hibernate.tables.Table{
 				return false;
 		} else if (!author.equals(other.author))
 			return false;
-		if (contents == null) {
-			if (other.contents != null)
-				return false;
-		} else if (!contents.equals(other.contents))
-			return false;
 		if (created == null) {
 			if (other.created != null)
 				return false;
@@ -278,11 +259,6 @@ public class Content implements Serializable, hibernate.tables.Table{
 			if (other.descriptionOfTags != null)
 				return false;
 		} else if (!descriptionOfTags.equals(other.descriptionOfTags))
-			return false;
-		if (frontPages == null) {
-			if (other.frontPages != null)
-				return false;
-		} else if (!frontPages.equals(other.frontPages))
 			return false;
 		if (id == null) {
 			if (other.id != null)

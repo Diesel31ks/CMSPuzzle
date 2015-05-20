@@ -11,7 +11,8 @@
 	<form action="login" method="post">
 		<%
 			String login = (String)request.getAttribute("login");
-			out.println("Unacceptable login or password. Please try again");
+			out.println("<br/>We're sorry, but we could not validate your login and password."+
+					"<br/> Please re-enter them below ");
 		%>
 		<h3>Please enter right user login and password</h3>
 		<table border=1>

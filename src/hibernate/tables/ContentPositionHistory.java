@@ -35,6 +35,33 @@ public class ContentPositionHistory implements Serializable, hibernate.tables.Ta
 	@JoinColumn(name = "cph_user")			//field name in table
 	private User userId;
 
+	public Integer getId() {
+		return id;
+	}
+	public Timestamp getDate() {
+		return date;
+	}
+	public void setDate(Timestamp date) {
+		this.date = date;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public Content getContentId() {
+		return contentId;
+	}
+	public void setContentId(Content contentId) {
+		this.contentId = contentId;
+	}
+	public User getUserId() {
+		return userId;
+	}
+	public void setUserId(User userId) {
+		this.userId = userId;
+	}
 
 	@Override
 	public int hashCode() {
@@ -48,8 +75,6 @@ public class ContentPositionHistory implements Serializable, hibernate.tables.Ta
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -86,8 +111,6 @@ public class ContentPositionHistory implements Serializable, hibernate.tables.Ta
 			return false;
 		return true;
 	}
-
-
 	@Override
 	public String toString() {
 		return new StringBuffer()

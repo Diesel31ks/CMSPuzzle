@@ -6,6 +6,8 @@ import hibernate.tables.userInfo.UserStatus;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -57,9 +59,6 @@ public class User implements Serializable, hibernate.tables.Table{
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getLogin() {
 		return login;
 	}
@@ -105,9 +104,6 @@ public class User implements Serializable, hibernate.tables.Table{
 	public Set<Content> getContent() {
 		return content;
 	}
-	public void setContent(Set<Content> content) {
-		this.content = content;
-	}
 	public String getConfirmCode() {
 		return confirmCode;
 	}
@@ -131,7 +127,6 @@ public class User implements Serializable, hibernate.tables.Table{
 				.append(", password=").append(password)
 				.append(", role=").append(role)
 				.append(", status=").append(status)
-				.append(", content=").append(content)
 				.append(", confirmCode=").append(confirmCode)
 				.append(", restoreCode=").append(restoreCode)
 				.append("]").toString();
@@ -142,7 +137,6 @@ public class User implements Serializable, hibernate.tables.Table{
 		int result = 1;
 		result = prime * result
 				+ ((confirmCode == null) ? 0 : confirmCode.hashCode());
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result
 				+ ((firstName == null) ? 0 : firstName.hashCode());
@@ -171,11 +165,6 @@ public class User implements Serializable, hibernate.tables.Table{
 			if (other.confirmCode != null)
 				return false;
 		} else if (!confirmCode.equals(other.confirmCode))
-			return false;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
 			return false;
 		if (email == null) {
 			if (other.email != null)

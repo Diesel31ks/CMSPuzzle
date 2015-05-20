@@ -40,10 +40,6 @@ public class Tag implements Serializable, hibernate.tables.Table{
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -96,10 +92,6 @@ public class Tag implements Serializable, hibernate.tables.Table{
 		return tags;
 	}
 
-	public void setTags(Set<ContentTagLinker> tags) {
-		this.tags = tags;
-	}
-	
 	@Override
 	public String toString() {
 		return new StringBuffer().append("Tags [id=").append(id)
@@ -109,7 +101,6 @@ public class Tag implements Serializable, hibernate.tables.Table{
 				.append(", description=").append(description)
 				.append(", url=").append(url)
 				.append(", rate=").append(rate)
-				.append(", tags=").append(tags)
 				.append("]").toString();
 	}
 
@@ -124,7 +115,6 @@ public class Tag implements Serializable, hibernate.tables.Table{
 				+ ((keywords == null) ? 0 : keywords.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
-		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -163,11 +153,6 @@ public class Tag implements Serializable, hibernate.tables.Table{
 			if (other.rate != null)
 				return false;
 		} else if (!rate.equals(other.rate))
-			return false;
-		if (tags == null) {
-			if (other.tags != null)
-				return false;
-		} else if (!tags.equals(other.tags))
 			return false;
 		if (title == null) {
 			if (other.title != null)
