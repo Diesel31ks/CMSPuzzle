@@ -22,11 +22,11 @@
 		<table border=1>
 			<tr>
 				<td>New password</td>
-				<td><input name="password" type="password"></input></td>
+				<td><input name="password" type="password" maxlength="100"></input></td>
 			</tr>
 			<tr>
 				<td>New password confirmation</td>
-				<td><input name="password_confirmation" type="password"></input></td>
+				<td><input name="password_confirmation" type="password" maxlength="100"></input></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="submit"> </input></td>

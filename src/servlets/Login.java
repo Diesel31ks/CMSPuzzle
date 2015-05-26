@@ -46,10 +46,12 @@ public class Login extends HttpServlet {
 				return;
 			}
 			List<User> users = null;
+			User user = null;
 			try {
 				users = userDaoImpl.getUsersByProperty("login", login);
-				if ((users != null) && (!users.isEmpty()) && users.size() == 1) {
-					User user = users.get(0);
+				if (users.size()==1)
+					user = users.get(0);
+				if ((user != null)) {	
 					if (validatePasswords(password, user)) {
 						request.setAttribute("firstname", user.getFirstName());
 						request.setAttribute("lastname", user.getLastName());
@@ -63,6 +65,9 @@ public class Login extends HttpServlet {
 						getServletContext().getRequestDispatcher(RELOGIN).forward(request, response);
 						return;
 					}
+				}else{
+					getServletContext().getRequestDispatcher(RELOGIN).forward(request, response);
+					return;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

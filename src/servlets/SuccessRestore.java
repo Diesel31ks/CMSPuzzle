@@ -20,6 +20,7 @@ import authorization.PasswordHash;
 
 @WebServlet(name = "successRestore", urlPatterns = { "/successRestore" })
 public class SuccessRestore extends HttpServlet {
+	private static final String RESTORE_PASSWORD_FORM = "/restorePasswordForm.jsp";
 	private static final String SUCCESS_RESTORING = "/successRestoring.jsp";
 	private static final String ERROR = "/error.jsp";
 	private static final long serialVersionUID = -8613898861506667048L;
@@ -30,19 +31,15 @@ public class SuccessRestore extends HttpServlet {
 
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String password = (String) request.getParameter("password");
-		String confirmPassword = (String) request
-				.getParameter("password_confirmation");
-		String login = (String) request.getParameter("login");
+		String password = (String) request.getAttribute("password");
+		String confirmPassword = (String) request.getAttribute("password_confirmation");
+		String login = (String) request.getAttribute("login");
 		System.out.println("SuccessRestore servlet working...");
-		if ((password != null) && (password != "") && (confirmPassword != null)
-				&& (confirmPassword != "") && (login != null) && (login != "")
-				&& (!password.equals(confirmPassword))) {
+		if ((password != null) && (password != "")	&& (password.equals(confirmPassword))) {
 			List<User> users = null;
 			try {
 				users = userDao.getUsersByProperty("login", login);
-				if ((users != null) && (!users.isEmpty())
-						&& (users.size() == 1)) {
+				if ((users.size() == 1) && (users.get(0) != null)) {
 					User user = users.get(0);
 					user.setPassword(PasswordHash.createHash(password));
 					user.setRestoreCode(String.valueOf(ServletUtil.getRandomCode()));
@@ -51,19 +48,16 @@ public class SuccessRestore extends HttpServlet {
 					request.getRequestDispatcher(SUCCESS_RESTORING).forward(request, response);
 					return;
 				} else {
-					request.getRequestDispatcher(ERROR).forward(request, response);
+					request.getRequestDispatcher(ERROR).forward(request,response);
 					return;
 				}
-			} catch (SQLException | NoSuchAlgorithmException
-					| InvalidKeySpecException e) {
+			} catch (SQLException | NoSuchAlgorithmException| InvalidKeySpecException e) {
 				e.printStackTrace();
-				request.getRequestDispatcher(ERROR).forward(request,
-						response);
+				request.getRequestDispatcher(ERROR).forward(request, response);
 				return;
 			}
 		} else {
-			request.getRequestDispatcher(ERROR).forward(request,
-					response);
+			request.getRequestDispatcher(RESTORE_PASSWORD_FORM).forward(request, response);
 			return;
 		}
 	}

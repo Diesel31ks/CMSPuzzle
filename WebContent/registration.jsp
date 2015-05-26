@@ -67,11 +67,11 @@
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><input name="password" type="password"></input></td>
+				<td><input name="password" type="password" maxlength="100"></input></td>
 			</tr> 
 			<tr>
 				<td>Password confirmation</td>
-				<td><input name="password_confirmation" type="password"></input></td>
+				<td><input name="password_confirmation" type="password" maxlength="100"></input></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="submit"> </input></td>

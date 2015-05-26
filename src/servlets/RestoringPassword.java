@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/restoringPassword")
 public class RestoringPassword extends HttpServlet {
+	private static final String ERROR = "/error.jsp";
 	private static final long serialVersionUID = 8938715813324878733L;
 	private UserDao userDao = HibernateFactory.getInstance().getUserDao();
        
@@ -26,12 +27,11 @@ public class RestoringPassword extends HttpServlet {
 		String newRestoreCode = (String) request.getParameter("restoreCode");
 		System.out.println("RestoringPassword servlet working...");
 		User user = null;
-		if ((newRestoreCode != null) && (newRestoreCode != "")&&
-				(login!= null) && (login != "")) {
+		if ((newRestoreCode != null) && (newRestoreCode != "")&&(login!= null) && (login != "")) {
 			String savedRestoreCode = null;
 			try {
 				if (userDao.getUsersByProperty("login", login).size()>1){
-					request.getRequestDispatcher("/error.jsp").forward(request, response);
+					request.getRequestDispatcher(ERROR).forward(request, response);
 					return;
 				}
 				user = userDao.getUsersByProperty("login", login).get(0);
@@ -41,10 +41,13 @@ public class RestoringPassword extends HttpServlet {
 					request.setAttribute("lastname", user.getLastName());
 					user.setRestoreCode(String.valueOf(ServletUtil.getRandomCode()));
 					userDao.updateUser(user);
+				}else{
+					request.getRequestDispatcher(ERROR).forward(request, response);
+					return;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				request.getRequestDispatcher("/error.jsp").forward(request, response);
+				request.getRequestDispatcher(ERROR).forward(request, response);
 				return;
 			}
 			if ((savedRestoreCode != null) && (newRestoreCode.equals(savedRestoreCode))) {
@@ -52,10 +55,10 @@ public class RestoringPassword extends HttpServlet {
 				request.setAttribute("login", login);
 				request.getRequestDispatcher("/restorePasswordForm.jsp").forward(request, response);
 			} else
-				request.getRequestDispatcher("/error.jsp").forward(request, response);
+				request.getRequestDispatcher(ERROR).forward(request, response);
 				return;
 		}else{
-			request.getRequestDispatcher("/error.jsp").forward(request, response);
+			request.getRequestDispatcher(ERROR).forward(request, response);
 			return;
 		}
 		

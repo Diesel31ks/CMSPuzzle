@@ -5,6 +5,7 @@ import hibernate.general.HibernateFactory;
 import hibernate.tables.User;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -75,8 +76,12 @@ public class RestorePassword extends HttpServlet {
 				+ "/restoringPassword?login=" + user.getLogin()
 				+ "&restoreCode=" + restoreCode;
 		ServletUtil.sendMessage(recipients, subject, text);
-		request.getServletContext().getRequestDispatcher("/").forward(request, response);
-		return;
+		PrintWriter writer = response.getWriter();
+		writer.println("Message was sent on your email");
+		writer.flush();
+		writer.close();
+//		request.getServletContext().getRequestDispatcher("/").forward(request, response);
+//		return;
 	}
 
 }
