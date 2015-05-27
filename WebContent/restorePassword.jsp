@@ -13,12 +13,10 @@
 			email = "";
 	%>
 	<form action="restorePassword" method="post">
-		<h3>Please enter user name and new password</h3>
+		<h3>Please enter user login and his email</h3>
 
 		<h4>
-			After restoring password we will send you a letter. <br />You should
-			to go by reference on it to confirm your restoring <br />Password
-			must be more than 8 symbols and less than 100
+			Then we will send you a letter with a reference. You will should go by reference 
 		</h4>
 		<table border="1">
 			<tr>

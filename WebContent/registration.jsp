@@ -44,7 +44,7 @@
 
 		<h4>
 			After registration we will send you a letter. 
-			<br />You should to go by reference on it to confirm your registration
+			<br />You should go by reference on it to confirm your registration
 			<br/>Password must be more than 8 symbols and less than 100
 		</h4>
 

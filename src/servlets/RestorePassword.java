@@ -77,11 +77,9 @@ public class RestorePassword extends HttpServlet {
 				+ "&restoreCode=" + restoreCode;
 		ServletUtil.sendMessage(recipients, subject, text);
 		PrintWriter writer = response.getWriter();
-		writer.println("Message was sent on your email");
+		writer.println("Message was sent to your email");
 		writer.flush();
 		writer.close();
-//		request.getServletContext().getRequestDispatcher("/").forward(request, response);
-//		return;
 	}
 
 }

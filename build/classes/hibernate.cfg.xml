@@ -5,7 +5,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://bane.beget.ru:3306/dieseljc_puzzle</property>
-        <property name="connection.pool_size">10</property>
+        <property name="connection.pool_size">100</property>
         <property name="show_sql">true</property>
         <!--?autoReconnect=true&user=root&password=tj$74-->
         <property name="hibernate.connection.username">dieseljc_puzzle</property>
