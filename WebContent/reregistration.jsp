@@ -34,18 +34,18 @@
 			<br /> You should to go by reference on it to confirm your registration
 		</h4>
 
-		<table border=1>
+		<table border="1">
 			<tr>
 				<td>Your first name</td>
-				<td><input name="firstname" type=text value="<%=firstName%>"></input></td>
+				<td><input name="firstname" type="text" value="<%=firstName%>"></input></td>
 			</tr>
 			<tr>
 				<td>Your last name</td>
-				<td><input name="lastname" type=text value="<%=lastName%>"></input></td>
+				<td><input name="lastname" type="text" value="<%=lastName%>"></input></td>
 			</tr>
 			<tr>
 				<td>Login</td>
-				<td><input name="login" type=text value="<%=login%>"></input></td>
+				<td><input name="login" type="text" value="<%=login%>"></input></td>
 			</tr>
 			<tr>
 				<td>Email</td>

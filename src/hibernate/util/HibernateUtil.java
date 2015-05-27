@@ -11,7 +11,7 @@ public class HibernateUtil {
 
 	static {
 		try {
-			Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
+			Configuration configuration = new Configuration().configure();//"hibernate.cfg.xml"
 			sessionFactory = configuration.buildSessionFactory();
 		} catch (Exception e) {
 			e.printStackTrace();

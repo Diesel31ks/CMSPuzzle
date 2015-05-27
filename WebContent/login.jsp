@@ -10,10 +10,10 @@
 <body>
 	<form action="login" method="post">
 		<h3>Please enter user name and password</h3>
-		<table border=1>
+		<table border="1">
 			<tr>
 				<td>Login</td>
-				<td><input name="login" type=text></input></td>
+				<td><input name="login" type="text"></input></td>
 			</tr>
 			<tr>
 				<td>Password</td>

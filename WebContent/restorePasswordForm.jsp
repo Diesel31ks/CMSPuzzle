@@ -8,25 +8,27 @@
 <title>Restoring password</title>
 </head>
 <body>
-	<%
-		String login = (String) request.getAttribute("login");
-		if (login == null)
-			login = "";
-		request.setAttribute("login", login);
-	%>
+
 	<form action="successRestore" method="post">
+		<%
+			String login = (String) request.getAttribute("login");
+			if (login == null)
+				login = "";
+			request.setAttribute("login", login);
+		%>
 		<h3>Please enter new password</h3>
 		<h4>
 			<br /> Password must be more than 8 symbols and less than 100
 		</h4>
-		<table border=1>
+		<table border="1">
 			<tr>
 				<td>New password</td>
 				<td><input name="password" type="password" maxlength="100"></input></td>
 			</tr>
 			<tr>
 				<td>New password confirmation</td>
-				<td><input name="password_confirmation" type="password" maxlength="100"></input></td>
+				<td><input name="password_confirmation" type="password"
+					maxlength="100"></input></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="submit"> </input></td>

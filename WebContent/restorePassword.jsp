@@ -20,14 +20,14 @@
 			to go by reference on it to confirm your restoring <br />Password
 			must be more than 8 symbols and less than 100
 		</h4>
-		<table border=1>
+		<table border="1">
 			<tr>
 				<td>Login</td>
-				<td><input name="login" type=text></input></td>
+				<td><input name="login" type="text"></input></td>
 			</tr>
 			<tr>
 				<td>Email</td>
-				<td><input name="email" type=text value="<%=email%>"></input></td>
+				<td><input name="email" type="text" value="<%=email%>"></input></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="submit"> </input></td>

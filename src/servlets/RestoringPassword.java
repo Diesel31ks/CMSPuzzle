@@ -53,7 +53,8 @@ public class RestoringPassword extends HttpServlet {
 			if ((savedRestoreCode != null) && (newRestoreCode.equals(savedRestoreCode))) {
 				System.out.println("OK!");
 				request.setAttribute("login", login);
-				request.getRequestDispatcher("/restorePasswordForm.jsp").forward(request, response);
+    			request.getRequestDispatcher("/restorePasswordForm.jsp").forward(request, response);
+				return;
 			} else
 				request.getRequestDispatcher(ERROR).forward(request, response);
 				return;

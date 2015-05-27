@@ -21,7 +21,7 @@ import authorization.PasswordHash;
 @WebServlet(name = "successRestore", urlPatterns = { "/successRestore" })
 public class SuccessRestore extends HttpServlet {
 	private static final String RESTORE_PASSWORD_FORM = "/restorePasswordForm.jsp";
-	private static final String SUCCESS_RESTORING = "/successRestoring.jsp";
+	private static final String MAIN_PAGE = "/";
 	private static final String ERROR = "/error.jsp";
 	private static final long serialVersionUID = -8613898861506667048L;
 	private UserDao userDao = HibernateFactory.getInstance().getUserDao();
@@ -31,6 +31,7 @@ public class SuccessRestore extends HttpServlet {
 
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		//password and confirm password and login = null
 		String password = (String) request.getAttribute("password");
 		String confirmPassword = (String) request.getAttribute("password_confirmation");
 		String login = (String) request.getAttribute("login");
@@ -45,7 +46,7 @@ public class SuccessRestore extends HttpServlet {
 					user.setRestoreCode(String.valueOf(ServletUtil.getRandomCode()));
 					userDao.updateUser(user);
 					System.out.println("Password updated successful!");
-					request.getRequestDispatcher(SUCCESS_RESTORING).forward(request, response);
+					request.getRequestDispatcher(MAIN_PAGE).forward(request, response);
 					return;
 				} else {
 					request.getRequestDispatcher(ERROR).forward(request,response);

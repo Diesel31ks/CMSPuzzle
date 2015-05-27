@@ -15,10 +15,10 @@
 					"<br/> Please re-enter them below ");
 		%>
 		<h3>Please enter right user login and password</h3>
-		<table border=1>
+		<table border="1">
 			<tr>
 				<td>Login</td>
-				<td><input name="login" type=text value="<%=login%>"></input></td>
+				<td><input name="login" type="text" value="<%=login%>"></input></td>
 			</tr>
 			<tr>
 				<td>Password</td>
