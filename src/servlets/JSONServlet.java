@@ -38,14 +38,12 @@ public class JSONServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		Map<String, String[]> params = request.getParameterMap();
-		// url without parameters
+		// url /posts without parameters
 		if (params.isEmpty() || params == null) {
 			JSONObject json = new JSONObject();
 			List<Content> contents = null;
 			Map<Integer, Content> map = new LinkedHashMap<>();
 			try {
-//				String[] args = {};
-//				Example.main(args);
 				contents = contentDao.getContents();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -86,7 +84,5 @@ public class JSONServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
 	}
-
 }
