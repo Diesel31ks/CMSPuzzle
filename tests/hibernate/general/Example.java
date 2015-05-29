@@ -55,7 +55,6 @@ public class Example {
 
 		Tag tag = new Tag();
 		tag.setName("Tag");
-		tag.setUrl("http://1/1/1/1.html");
 		factory.getTagDao().addTag(tag);
 
 		contentTagLinker.setContent(content);

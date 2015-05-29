@@ -18,20 +18,13 @@ public class Tag implements Serializable, hibernate.tables.Table{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "t_id")
-	
 	private Integer id;
+	
 	@Column(name = "t_name")
 	private String name;
+	
 	@Column(name = "t_title")
-	private String title;
-	@Column(name = "t_kwds")
-	private String keywords;
-	@Column(name = "t_descr")
-	private String description;
-	@Column(name = "t_url")
-	private String url;
-	@Column (name = "t_rate")
-	private Byte rate;
+	private Integer priority;
 	
 	@OneToMany(mappedBy="tag")		//reference on field in object ContentTagLinker
 	private Set<ContentTagLinker>tags;
@@ -48,44 +41,12 @@ public class Tag implements Serializable, hibernate.tables.Table{
 		this.name = name;
 	}
 
-	public String getTitle() {
-		return title;
+	public Integer getPriority() {
+		return priority;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getKeywords() {
-		return keywords;
-	}
-
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public Byte getRate() {
-		return rate;
-	}
-
-	public void setRate(Byte rate) {
-		this.rate = rate;
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 
 	public Set<ContentTagLinker> getTags() {
@@ -96,11 +57,7 @@ public class Tag implements Serializable, hibernate.tables.Table{
 	public String toString() {
 		return new StringBuffer().append("Tags [id=").append(id)
 				.append(", name=").append(name)
-				.append(", title=").append(title)
-				.append(", keywords=").append(keywords)
-				.append(", description=").append(description)
-				.append(", url=").append(url)
-				.append(", rate=").append(rate)
+				.append(", priority=").append(priority)
 				.append("]").toString();
 	}
 
@@ -108,15 +65,9 @@ public class Tag implements Serializable, hibernate.tables.Table{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((keywords == null) ? 0 : keywords.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((url == null) ? 0 : url.hashCode());
+		result = prime * result + ((priority == null) ? 0 : priority.hashCode());
 		return result;
 	}
 
@@ -129,42 +80,21 @@ public class Tag implements Serializable, hibernate.tables.Table{
 		if (getClass() != obj.getClass())
 			return false;
 		Tag other = (Tag) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (keywords == null) {
-			if (other.keywords != null)
-				return false;
-		} else if (!keywords.equals(other.keywords))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (rate == null) {
-			if (other.rate != null)
+		if (priority == null) {
+			if (other.priority != null)
 				return false;
-		} else if (!rate.equals(other.rate))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		if (url == null) {
-			if (other.url != null)
-				return false;
-		} else if (!url.equals(other.url))
+		} else if (!priority.equals(other.priority))
 			return false;
 		return true;
 	}
-	
 }

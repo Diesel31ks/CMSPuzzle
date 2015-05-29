@@ -20,10 +20,6 @@
 		</h4>
 		<table border="1">
 			<tr>
-				<td>Login</td>
-				<td><input name="login" type="text"></input></td>
-			</tr>
-			<tr>
 				<td>Email</td>
 				<td><input name="email" type="text" value="<%=email%>"></input></td>
 			</tr>

@@ -26,12 +26,12 @@
 			<tr>
 				<td>New password confirmation</td>
 				<td><input name="password_confirmation" type="password"></input></td>
-				<td><input type="hidden" name="login" value="<%=login%>"></input></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="submit"> </input></td>
 			</tr>
 		</table>
+		<input type="hidden" name="login" value="<%=login%>" ></input>
 	</form>
 </body>
 </html>

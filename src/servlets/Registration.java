@@ -7,6 +7,7 @@ import hibernate.tables.userInfo.UserRole;
 import hibernate.tables.userInfo.UserStatus;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
@@ -26,8 +27,7 @@ public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 5393044129773580802L;
 	UserDao userDao = HibernateFactory.getInstance().getUserDao();
 	@Override
-	protected void service(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstName = request.getParameter("firstname");
 		String lastName = request.getParameter("lastname");
 		String login = request.getParameter("login");
@@ -46,7 +46,6 @@ public class Registration extends HttpServlet {
 					.forward(request, response);
 			return;
 		}
-
 		if ((login == "") || (login == null) || (password == "")
 				|| (password == null) || (firstName == "")
 				|| (firstName == null) || (lastName == "")
@@ -55,15 +54,16 @@ public class Registration extends HttpServlet {
 				|| (password.length() > 100) || (password.length() < 8)
 				|| (password.contains(" ")) || (password.contains("/r"))
 				|| (password.contains("/n"))) {
-			// request.setAttribute("passwords_not_equal", Boolean.TRUE);
-			// response.sendRedirect(request.getContextPath()
-			// +"/registration.jsp");
 			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
 			return;
 		}
-		// request.setAttribute("passwords_not_equal", Boolean.FALSE);.
 		if (checkingLoginExists(login)){
 			request.setAttribute("login", "");
+			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+			return;
+		}
+		if (checkingEmailExists(email)){
+			request.setAttribute("email", "");
 			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
 			return;
 		}
@@ -88,8 +88,10 @@ public class Registration extends HttpServlet {
 					+ newUser.getLogin() + "&confirmationCode="
 					+ newUser.getConfirmCode();
 			ServletUtil.sendMessage(recipients, subject, text);
-			request.getServletContext().getRequestDispatcher("/").forward(request, response);
-			return;
+			PrintWriter writer = response.getWriter(); 
+			writer.println("Message was sent. Check your email");
+			writer.flush();
+			writer.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			getServletContext().getRequestDispatcher("/error.jsp").forward(
@@ -102,8 +104,20 @@ public class Registration extends HttpServlet {
 		}
 	}
 
-	private User registerUser(String firstName, String lastName, String login,
-			String email) {
+	private boolean checkingEmailExists(String email) {
+		try {
+			List<User> users = userDao.getUsersByProperty("email", email);
+			if (users.size() >= 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return true;
+		}
+		return false;
+	}
+
+	private User registerUser(String firstName, String lastName, String login,String email) {
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
@@ -116,8 +130,7 @@ public class Registration extends HttpServlet {
 		return user;
 	}
 
-	private boolean checkingLoginExists(String login)
-			throws ServletException, IOException {
+	private boolean checkingLoginExists(String login){
 		try {
 			List<User> users = userDao.getUsersByProperty("login", login);
 			if (users.size() >= 1) {

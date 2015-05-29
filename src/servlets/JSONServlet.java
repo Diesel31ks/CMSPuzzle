@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-@WebServlet("/posts")
+@WebServlet("/api/posts")
 public class JSONServlet extends HttpServlet {
 	private static final long serialVersionUID = 2666565230603548512L;
 	ContentDao contentDao = HibernateFactory.getInstance().getContentDao();

@@ -40,7 +40,7 @@ public class SuccessRegistration extends HttpServlet {
 					request.setAttribute("lastname", user.getLastName());
 					user.setRestoreCode(String.valueOf(ServletUtil.getRandomCode()));
 					if ((savedConfirmCode != null) && (newConfirmCode.equals(savedConfirmCode))) {
-						System.out.println("OK!");
+						System.out.println("User has changed his password successful!");
 						userDao.updateUser(user);
 						request.getRequestDispatcher("/successRegistration.jsp").forward(request, response);
 						return;

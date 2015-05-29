@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "content")
 public class Content implements Serializable, hibernate.tables.Table{
 	private static final long serialVersionUID = -5284963386489685478L;
 	@Id

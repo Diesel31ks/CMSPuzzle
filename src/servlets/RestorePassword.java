@@ -27,7 +27,7 @@ public class RestorePassword extends HttpServlet {
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
-		String login = request.getParameter("login");
+//		String login = request.getParameter("login");
 		request.setAttribute("email", email);
 
 		System.out.println("RestorePassword servlet working...");
@@ -37,16 +37,16 @@ public class RestorePassword extends HttpServlet {
 					.forward(request, response);
 			return;
 		}
-		if ((login == "") || (login == null)) {
-			getServletContext().getRequestDispatcher(RESTORE_PASSWORD)
-					.forward(request, response);
-			return;
-		}
+//		if ((login == "") || (login == null)) {
+//			getServletContext().getRequestDispatcher(RESTORE_PASSWORD)
+//					.forward(request, response);
+//			return;
+//		}
 		List<User> newUsers = null;
 		User user = null;
 		String restoreCode = String.valueOf(ServletUtil.getRandomCode());
 		try {
-			newUsers = userDao.getUsersByProperty("login", login);
+			newUsers = userDao.getUsersByProperty("email", email);
 			if (newUsers.size() == 1) {
 				user = newUsers.get(0); 
 				if (user.getEmail().equals(email)) {
@@ -77,7 +77,7 @@ public class RestorePassword extends HttpServlet {
 				+ "&restoreCode=" + restoreCode;
 		ServletUtil.sendMessage(recipients, subject, text);
 		PrintWriter writer = response.getWriter();
-		writer.println("Message was sent to your email");
+		writer.println("Message was sent to your email. Check your email");
 		writer.flush();
 		writer.close();
 	}
