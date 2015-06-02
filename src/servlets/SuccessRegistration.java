@@ -41,6 +41,7 @@ public class SuccessRegistration extends HttpServlet {
 					request.setAttribute("firstname", user.getFirstName());
 					request.setAttribute("lastname", user.getLastName());
 					user.setRestoreCode(String.valueOf(ServletUtil.getRandomCode()));
+					user.setConfirmCode(String.valueOf(ServletUtil.getRandomCode()));
 					if ((savedConfirmCode != null) && (newConfirmCode.equals(savedConfirmCode))) {
 						System.out.println("User has changed his password successful!");
 						userDao.updateUser(user);
