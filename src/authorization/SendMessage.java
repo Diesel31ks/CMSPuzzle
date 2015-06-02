@@ -1,6 +1,7 @@
 package authorization;
 
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -8,7 +9,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.Multipart;
 import javax.mail.Authenticator;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class SendMessage {
 	private static final String CHARSET = "KOI8-R";
@@ -16,6 +20,7 @@ public class SendMessage {
 	final private static String PASSWORD = "puzart6$2015";
 	final private static String HOST = "smtp.mail.ru";
 	final private static String PORT = "465";
+	private static InternetAddress Address = new InternetAddress();
 	private Properties mailProps = new Properties();
 
 	public void sendMessage(String[] recipients, String subject, String text)
@@ -30,7 +35,8 @@ public class SendMessage {
 		MimeMessage mimeMessage = new MimeMessage(mailSession);
 		mimeMessage.setRecipients(Message.RecipientType.TO, dests);
 		mimeMessage.setSubject(subject, CHARSET);
-		mimeMessage.setFrom(EMAIL);
+		Address.setAddress("team_puzzle@mail.ua");
+		mimeMessage.setFrom(Address);
 		mimeMessage.setSentDate(new java.util.Date());
 		
 		MimeBodyPart mimeBodyPart = new MimeBodyPart();
