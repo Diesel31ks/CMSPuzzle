@@ -3,6 +3,8 @@ package servlets;
 import hibernate.dao.UserDao;
 import hibernate.general.HibernateFactory;
 import hibernate.tables.User;
+import hibernate.tables.userInfo.UserRole;
+import hibernate.tables.userInfo.UserStatus;
 
 import java.io.IOException;
 import java.sql.SQLException;

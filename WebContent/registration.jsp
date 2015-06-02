@@ -8,13 +8,8 @@
 <title>Registration in CMSPuzzle</title>
 </head>
 <body>
-<jsp:useBean id="user" class="hibernate.tables.User" scope="request" >
-   <jsp:setProperty name="user" property="*" />
-</jsp:useBean>
-<!-- /CMSPuzzle-1.0-SNAPSHOT/registration -->
 	<form action="registration" method="post">
 		<%
-// 			user.
 			String firstName = (String) request.getAttribute("firstname");
 			String lastName = (String) request.getAttribute("lastname");
 			String login = (String) request.getAttribute("login");

@@ -1,6 +1,7 @@
 package servlets;
 
 import hibernate.dao.ContentDao;
+import hibernate.general.Example;
 import hibernate.general.HibernateFactory;
 import hibernate.tables.Content;
 
@@ -43,6 +44,12 @@ public class JSONServlet extends HttpServlet {
 			JSONObject json = new JSONObject();
 			List<Content> contents = null;
 			Map<Integer, Content> map = new LinkedHashMap<>();
+			String [] args=null;
+			try {
+				Example.main(args);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			try {
 				contents = contentDao.getContents();
 			} catch (SQLException e) {
@@ -58,28 +65,9 @@ public class JSONServlet extends HttpServlet {
 				System.out.println(json);
 			}
 			out.println("json = "+json);
+			out.flush();
+			out.close();
 		}
-
-//		String string = (String) request.getParameter("json");
-//		JSONObject json = null;
-//		try {
-//			json = (JSONObject) parser.parse(string);
-//			String valueOfK = null;
-//			if (json.containsKey("k")) {
-//				valueOfK = (String) json.get("k");
-//				System.out.println("k=" + valueOfK);
-//			}
-//
-//		} catch (ParseException pe) {
-//			System.out.println("position" + pe.getPosition());
-//			System.out.println(pe);
-//		}
-
-		// finally output the json string
-//		System.out.println(json.toJSONString());
-//		out.flush();
-//		out.print(json.toJSONString());
-
 	}
 
 	protected void doPost(HttpServletRequest request,

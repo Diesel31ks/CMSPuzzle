@@ -16,9 +16,7 @@
 			firstname="noname";
 		if (lastname==null)
 			lastname="nolastname";
-		// 		out.println(login + " "+password);
-		session.setAttribute("firstname", firstname);
-		session.setAttribute("lastname", lastname);
+		
 	out.println("Welcome " + firstname +" "+lastname +" <br/> <a href=\"logout.jsp\" >Logout</a>");
 	%>
 	<br/>
