@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import authorization.EmailValidate;
 import authorization.PasswordHash;
 
-@WebServlet(description = "to register a new user", urlPatterns = { "/registration" })
+//@WebServlet(description = "to register a new user", urlPatterns = { "/registration" })
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 5393044129773580802L;
 	UserDao userDao = HibernateFactory.getInstance().getUserDao();

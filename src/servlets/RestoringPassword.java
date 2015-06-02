@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/restoringPassword")
+//@WebServlet("/restoringPassword")
 public class RestoringPassword extends HttpServlet {
 	private static final String ERROR = "/error.jsp";
 	private static final long serialVersionUID = 8938715813324878733L;

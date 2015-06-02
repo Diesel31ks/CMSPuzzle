@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-@WebServlet("/api/posts")
+//@WebServlet("/api/posts")
 public class JSONServlet extends HttpServlet {
 	private static final long serialVersionUID = 2666565230603548512L;
 	ContentDao contentDao = HibernateFactory.getInstance().getContentDao();
@@ -43,7 +43,7 @@ public class JSONServlet extends HttpServlet {
 		if (params.isEmpty() || params == null) {
 			JSONObject json = new JSONObject();
 			List<Content> contents = null;
-			Map<Integer, Content> map = new LinkedHashMap<>();
+			Map<Integer, Content> map = new LinkedHashMap<Integer, Content>();
 			String [] args=null;
 			try {
 				Example.main(args);

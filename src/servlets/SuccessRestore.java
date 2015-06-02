@@ -12,14 +12,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import authorization.PasswordHash;
 
-@WebServlet(name = "successRestore", urlPatterns = { "/successRestore" })
+//@WebServlet(name = "successRestore", urlPatterns = { "/successRestore" })
 public class SuccessRestore extends HttpServlet {
 	private static final String RESTORE_PASSWORD_FORM = "/restorePasswordForm.jsp";
 	private static final String ERROR = "/error.jsp";

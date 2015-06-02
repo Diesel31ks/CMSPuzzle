@@ -10,14 +10,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import authorization.EmailValidate;
 
-@WebServlet("/restorePassword")
+//@WebServlet("/restorePassword")
 public class RestorePassword extends HttpServlet {
 	private static final String RESTORE_PASSWORD = "/restorePassword.jsp";
 	private static final long serialVersionUID = 7778541242689761958L;

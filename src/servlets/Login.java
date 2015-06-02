@@ -11,14 +11,14 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import authorization.PasswordHash;
 
-@WebServlet("/login")
+//@WebServlet("/login")
 public class Login extends HttpServlet {
 	private static final String SUCCESS_LOGIN = "/successLogin.jsp";
 	private static final String RELOGIN = "/relogin.jsp";
