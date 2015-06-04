@@ -14,12 +14,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import utils.DumpCreator;
+//import javax.servlet.annotation.WebServlet;
 import authorization.EmailValidate;
 import authorization.PasswordHash;
 
@@ -99,11 +97,7 @@ public class Registration extends HttpServlet {
 			writer.println("Message was sent. Check your email");
 			writer.flush();
 			writer.close();
-			try{						
-				DumpCreator.getDump();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			getServletContext().getRequestDispatcher("/error.jsp").forward(
@@ -120,6 +114,9 @@ public class Registration extends HttpServlet {
 		if ((email.isEmpty()) || (email==null))
 			return true;
 		try {
+			/*
+			 * TODO throw null pointer exception when email isn't exists
+			 */
 			List<User> users = userDao.getUsersByProperty("email", email);
 			if (users.size() >= 1) {
 				return true;
@@ -145,9 +142,12 @@ public class Registration extends HttpServlet {
 	}
 
 	private boolean checkingLoginExists(String login){
-		if ((login.isEmpty()) || (login==null))
+		if ((login.isEmpty()) || (login == null))
 			return true;
 		try {
+			/*
+			 * TODO throw null pointer exception when login isn't exists
+			 */
 			List<User> users = userDao.getUsersByProperty("login", login);
 			if (users.size() >= 1) {
 				return true;

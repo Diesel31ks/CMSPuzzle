@@ -3,8 +3,6 @@ package servlets;
 import hibernate.dao.UserDao;
 import hibernate.general.HibernateFactory;
 import hibernate.tables.User;
-import hibernate.tables.userInfo.UserRole;
-import hibernate.tables.userInfo.UserStatus;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,8 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import utils.DumpCreator;
 
 //@WebServlet("/successRegistration")
 public class SuccessRegistration extends HttpServlet {
@@ -47,11 +43,6 @@ public class SuccessRegistration extends HttpServlet {
 					if ((savedConfirmCode != null) && (newConfirmCode.equals(savedConfirmCode))) {
 						System.out.println("User has changed his password successful!");
 						userDao.updateUser(user);
-						try{						
-							DumpCreator.getDump();
-						}catch(Exception e){
-							e.printStackTrace();
-						}
 						request.getRequestDispatcher("/successRegistration.jsp").forward(request, response);
 						return;
 					} else {

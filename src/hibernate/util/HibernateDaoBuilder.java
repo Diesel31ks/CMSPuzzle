@@ -1,6 +1,5 @@
 package hibernate.util;
 
-import hibernate.tables.Content;
 import hibernate.tables.Table;
 
 import java.sql.SQLException;

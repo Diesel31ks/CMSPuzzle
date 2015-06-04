@@ -106,6 +106,16 @@
     	<artifactId>hibernate-core</artifactId>
     	<version>4.3.8.Final</version>
     </dependency>
+  	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-c3p0</artifactId>
+		<version>3.3.1.GA</version>
+  	</dependency>
+  	<dependency>
+		<groupId>c3p0</groupId>
+		<artifactId>c3p0</artifactId>
+		<version>0.9.1</version>
+	</dependency>
   </dependencies>
   <repositories>
 	<repository>

@@ -12,7 +12,18 @@
         <property name="hibernate.connection.password">puzart6$2015</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="current_session_context_class">thread</property>
-<!--         mapping resources = "book.hbm.xml"/ -->
+        
+        <!-- tell hibernate to use C3P0 -->  
+        <property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+         
+        <!-- If this is a number greater than 0, C3P0 will test all idle, pooled but unchecked-out connections, every this number of seconds--> 
+        <!-- Set this to something below your MySQL wait_timeout -->
+         
+        <property name="c3p0.idle_test_period">14400</property>
+         
+        <!-- a query used to test connections --> 
+        <property name="c3p0.preferredTestQuery">select 1;</property>
+                 
         <mapping class="hibernate.tables.User" />
         <mapping class="hibernate.tables.Tag" />
         <mapping class="hibernate.tables.Content" />
