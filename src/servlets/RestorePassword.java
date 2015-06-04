@@ -71,8 +71,11 @@ public class RestorePassword extends HttpServlet {
 		String subject = "Восстановление пароля";
 		String info = this.getServletContext().getContextPath();
 		String text = "Вы зарегистрированиы на сайте " + info
-				+ ". Для восстановления пароля пройдите по ссылке " + "http://"
-				+ ServletUtil.HOST + ":" + request.getServerPort() + info
+				+ ". Для восстановления пароля пройдите по ссылке " 
+				+ "http://" + ServletUtil.MARGO_HOST + ":" + request.getServerPort() + info
+				+ "/restoringPassword?login=" + user.getLogin()
+				+ "&restoreCode=" + restoreCode + " или "
+				+ "http://" + ServletUtil.MY_HOST + ":" + request.getServerPort() + info
 				+ "/restoringPassword?login=" + user.getLogin()
 				+ "&restoreCode=" + restoreCode;
 		ServletUtil.sendMessage(recipients, subject, text);

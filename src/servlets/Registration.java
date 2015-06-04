@@ -83,8 +83,14 @@ public class Registration extends HttpServlet {
 			String info = this.getServletContext().getContextPath();
 			String text = "Вы зарегистрированиы на сайте " + info
 					+ ". Для потверждения регистрации пройдите по ссылке "
-					+ "http://" + ServletUtil.HOST + ":"
-					+ request.getServerPort() + info + "/successRegistration?login="
+					+ "http://" + ServletUtil.MARGO_HOST + ":"
+					+ request.getServerPort() + info 
+					+ "/successRegistration?login="
+					+ newUser.getLogin() + "&confirmationCode="
+					+ newUser.getConfirmCode()+" или "
+					+"http://" + ServletUtil.MY_HOST + ":"
+					+ request.getServerPort() + info 
+					+ "/successRegistration?login="
 					+ newUser.getLogin() + "&confirmationCode="
 					+ newUser.getConfirmCode();
 			ServletUtil.sendMessage(recipients, subject, text);

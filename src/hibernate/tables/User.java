@@ -6,8 +6,6 @@ import hibernate.tables.userInfo.UserStatus;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.Column;
