@@ -88,7 +88,7 @@ public class Registration extends HttpServlet {
 					+ request.getServerPort() + info 
 					+ "/successRegistration?login="
 					+ newUser.getLogin() + "&confirmationCode="
-					+ newUser.getConfirmCode()+" или "
+					+ newUser.getConfirmCode()+" or "
 					+"http://" + ServletUtil.MY_HOST + ":"
 					+ request.getServerPort() + info 
 					+ "/successRegistration?login="
@@ -117,6 +117,8 @@ public class Registration extends HttpServlet {
 	}
 
 	private boolean checkingEmailExists(String email) {
+		if ((email.isEmpty()) || (email==null))
+			return true;
 		try {
 			List<User> users = userDao.getUsersByProperty("email", email);
 			if (users.size() >= 1) {
@@ -143,6 +145,8 @@ public class Registration extends HttpServlet {
 	}
 
 	private boolean checkingLoginExists(String login){
+		if ((login.isEmpty()) || (login==null))
+			return true;
 		try {
 			List<User> users = userDao.getUsersByProperty("login", login);
 			if (users.size() >= 1) {
