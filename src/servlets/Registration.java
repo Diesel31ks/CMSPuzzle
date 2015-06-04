@@ -25,8 +25,10 @@ import authorization.PasswordHash;
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 5393044129773580802L;
 	UserDao userDao = HibernateFactory.getInstance().getUserDao();
+
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String firstName = request.getParameter("firstname");
 		String lastName = request.getParameter("lastname");
 		String login = request.getParameter("login");
@@ -53,17 +55,20 @@ public class Registration extends HttpServlet {
 				|| (password.length() > 100) || (password.length() < 8)
 				|| (password.contains(" ")) || (password.contains("/r"))
 				|| (password.contains("/n"))) {
-			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/registration.jsp")
+					.forward(request, response);
 			return;
 		}
-		if (checkingLoginExists(login)){
+		if (checkingLoginExists(login)) {
 			request.setAttribute("login", "");
-			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/registration.jsp")
+					.forward(request, response);
 			return;
 		}
-		if (checkingEmailExists(email)){
+		if (checkingEmailExists(email)) {
 			request.setAttribute("email", "");
-			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/registration.jsp")
+					.forward(request, response);
 			return;
 		}
 		User newUser = registerUser(firstName, lastName, login, email);
@@ -71,7 +76,8 @@ public class Registration extends HttpServlet {
 			newUser.setPassword(PasswordHash.createHash(password));
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
 			e1.printStackTrace();
-			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/registration.jsp")
+					.forward(request, response);
 			return;
 		}
 		try {
@@ -83,17 +89,15 @@ public class Registration extends HttpServlet {
 			String text = "You have already registered  in website" + info
 					+ ". To confirm your registration go by reference "
 					+ "http://" + ServletUtil.MARGO_HOST + ":"
-					+ request.getServerPort() + info 
-					+ "/successRegistration?login="
-					+ newUser.getLogin() + "&confirmationCode="
-					+ newUser.getConfirmCode()+" or "
-					+"http://" + ServletUtil.MY_HOST + ":"
-					+ request.getServerPort() + info 
-					+ "/successRegistration?login="
-					+ newUser.getLogin() + "&confirmationCode="
-					+ newUser.getConfirmCode();
+					+ request.getServerPort() + info
+					+ "/successRegistration?login=" + newUser.getLogin()
+					+ "&confirmationCode=" + newUser.getConfirmCode() + " or "
+					+ "http://" + ServletUtil.MY_HOST + ":"
+					+ request.getServerPort() + info
+					+ "/successRegistration?login=" + newUser.getLogin()
+					+ "&confirmationCode=" + newUser.getConfirmCode();
 			ServletUtil.sendMessage(recipients, subject, text);
-			PrintWriter writer = response.getWriter(); 
+			PrintWriter writer = response.getWriter();
 			writer.println("Message was sent. Check your email");
 			writer.flush();
 			writer.close();
@@ -105,21 +109,21 @@ public class Registration extends HttpServlet {
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();
-			getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/error.jsp").forward(
+					request, response);
 			return;
 		}
 	}
 
 	private boolean checkingEmailExists(String email) {
-		if ((email.isEmpty()) || (email==null))
+		if ((email.isEmpty()) || (email == null))
 			return true;
 		try {
-			/*
-			 * TODO throw null pointer exception when email isn't exists
-			 */
-			List<User> users = userDao.getUsersByProperty("email", email);
-			if (users.size() >= 1) {
-				return true;
+			if (userDao.getUsersByProperty("email", email) != null) {
+				List<User> users = userDao.getUsersByProperty("email", email);
+				if (users.size() >= 1) {
+					return true;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,7 +132,8 @@ public class Registration extends HttpServlet {
 		return false;
 	}
 
-	private User registerUser(String firstName, String lastName, String login,String email) {
+	private User registerUser(String firstName, String lastName, String login,
+			String email) {
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
@@ -141,16 +146,15 @@ public class Registration extends HttpServlet {
 		return user;
 	}
 
-	private boolean checkingLoginExists(String login){
+	private boolean checkingLoginExists(String login) {
 		if ((login.isEmpty()) || (login == null))
 			return true;
 		try {
-			/*
-			 * TODO throw null pointer exception when login isn't exists
-			 */
-			List<User> users = userDao.getUsersByProperty("login", login);
-			if (users.size() >= 1) {
-				return true;
+			if (userDao.getUsersByProperty("login", login) != null) {
+				List<User> users = userDao.getUsersByProperty("login", login);
+				if (users.size() >= 1) {
+					return true;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
