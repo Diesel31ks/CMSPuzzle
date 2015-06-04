@@ -49,9 +49,9 @@ public class User implements Serializable, hibernate.tables.Table{
 	@OneToMany(mappedBy="author")	//reference on field in object Content
 	private Set<Content>content;
 
-	@Column (name = "confirm_code")
+	@Column (name = "u_confirm_code")
 	private String confirmCode;
-	@Column (name = "restore_code")
+	@Column (name = "u_restore_code")
 	private String restoreCode;
 	
 	public Integer getId() {

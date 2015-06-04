@@ -32,6 +32,17 @@ public class ContentDaoImpl implements ContentDao{
 			Object propertyValue) throws SQLException {
 		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty(propertyName, propertyValue, new Content());
 	}
+	
+	public List<Content> getContentsByProperty(String propertyName1, Object propertyValue1, String propertyName2,
+			Object propertyValue2) throws SQLException {
+		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty(propertyName1, propertyValue1,propertyName2, propertyValue2, new Content());
+	}
+
+	public List<Content> getContentsByProperty(String propertyName1, Object propertyValue1, String propertyName2,
+			Object propertyValue2, String propertyName3, Object propertyValue3) throws SQLException {
+		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty(propertyName1, propertyValue1, propertyName2, propertyValue2, propertyName3, propertyValue3, new Content());
+	}
+	
 
 	public void updateContent(Content content) throws SQLException {
 		HibernateDaoBuilder.updateTableValue(content);

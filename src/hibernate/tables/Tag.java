@@ -23,7 +23,7 @@ public class Tag implements Serializable, hibernate.tables.Table{
 	@Column(name = "t_name")
 	private String name;
 	
-	@Column(name = "t_title")
+	@Column(name = "t_priority")
 	private Integer priority;
 	
 	@OneToMany(mappedBy="tag")		//reference on field in object ContentTagLinker

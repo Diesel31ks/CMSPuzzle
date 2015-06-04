@@ -28,11 +28,11 @@ public class Content implements Serializable, hibernate.tables.Table{
 	private String title;
 	@Column(name = "c_kwds")
 	private String keywordsOfTags;
-	@Column(name = "c_descr")
+	@Column(name = "c_description_tags")
 	private String descriptionOfTags;
 	@Column(name = "c_img")
 	private String image;
-	@Column(name = "c_description")
+	@Column(name = "c_description_content")
 	private String descriptionOfContent;
 	@Column(name = "c_text")
 	private String text;
