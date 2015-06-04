@@ -24,7 +24,7 @@ public class Content implements Serializable, hibernate.tables.Table{
 	private Integer id;
 	@Column(name = "c_name")
 	private String name;
-	@Column(name = "title")
+	@Column(name = "c_title")
 	private String title;
 	@Column(name = "c_kwds")
 	private String keywordsOfTags;

@@ -17,6 +17,6 @@
 	<a href="./">Main page</a>
 	<br />
 	<a href="login.jsp">Log in</a>
-s
+
 </body>
 </html>

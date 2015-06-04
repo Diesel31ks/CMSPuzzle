@@ -68,10 +68,10 @@ public class RestorePassword extends HttpServlet {
 			return;
 		}
 		String[] recipients = { email };
-		String subject = "Восстановление пароля";
+		String subject = "Restorin password";
 		String info = this.getServletContext().getContextPath();
-		String text = "Вы зарегистрированиы на сайте " + info
-				+ ". Для восстановления пароля пройдите по ссылке " 
+		String text = "You have already registered  in website " + info
+				+ ". To restore your password go by reference " 
 				+ "http://" + ServletUtil.MARGO_HOST + ":" + request.getServerPort() + info
 				+ "/restoringPassword?login=" + user.getLogin()
 				+ "&restoreCode=" + restoreCode + " или "

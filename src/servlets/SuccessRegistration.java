@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utils.DumpCreator;
+
 //@WebServlet("/successRegistration")
 public class SuccessRegistration extends HttpServlet {
 	private static final long serialVersionUID = 3752212939930588492L;
@@ -45,6 +47,11 @@ public class SuccessRegistration extends HttpServlet {
 					if ((savedConfirmCode != null) && (newConfirmCode.equals(savedConfirmCode))) {
 						System.out.println("User has changed his password successful!");
 						userDao.updateUser(user);
+						try{						
+							DumpCreator.getDump();
+						}catch(Exception e){
+							e.printStackTrace();
+						}
 						request.getRequestDispatcher("/successRegistration.jsp").forward(request, response);
 						return;
 					} else {

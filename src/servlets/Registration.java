@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utils.DumpCreator;
 import authorization.EmailValidate;
 import authorization.PasswordHash;
 
@@ -79,10 +80,10 @@ public class Registration extends HttpServlet {
 			userDao.addUser(newUser);
 			System.out.println("New user was saved in database");
 			String[] recipients = { email };
-			String subject = "Подтверждение регистрации";
+			String subject = "Confirmation of registration ";
 			String info = this.getServletContext().getContextPath();
-			String text = "Вы зарегистрированиы на сайте " + info
-					+ ". Для потверждения регистрации пройдите по ссылке "
+			String text = "You have already registered  in website" + info
+					+ ". To confirm your registration go by reference "
 					+ "http://" + ServletUtil.MARGO_HOST + ":"
 					+ request.getServerPort() + info 
 					+ "/successRegistration?login="
@@ -98,6 +99,11 @@ public class Registration extends HttpServlet {
 			writer.println("Message was sent. Check your email");
 			writer.flush();
 			writer.close();
+			try{						
+				DumpCreator.getDump();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			getServletContext().getRequestDispatcher("/error.jsp").forward(
