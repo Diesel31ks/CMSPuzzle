@@ -25,6 +25,7 @@ public class ContentDaoImpl implements ContentDao{
 	}
 
 	/**
+	 * get list of Content by 1 property
 	 * @propertyName is a field in Object which is assigned with DB table. 
 	 * @propertyValue is a value of propertyName 
 	 */
@@ -32,12 +33,20 @@ public class ContentDaoImpl implements ContentDao{
 			Object propertyValue) throws SQLException {
 		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty(propertyName, propertyValue, new Content());
 	}
-	
+	/**
+//	 * get List of Content by 2 properties
+	 * @propertyName is a field in Object which is assigned with DB table. 
+	 * @propertyValue is a value of propertyName 
+	 */	
 	public List<Content> getContentsByProperty(String propertyName1, Object propertyValue1, String propertyName2,
 			Object propertyValue2) throws SQLException {
 		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty(propertyName1, propertyValue1,propertyName2, propertyValue2, new Content());
 	}
-
+	/**
+	 * get list of Content by 3 properties
+	 * @propertyName is a field in Object which is assigned with DB table. 
+	 * @propertyValue is a value of propertyName 
+	 */
 	public List<Content> getContentsByProperty(String propertyName1, Object propertyValue1, String propertyName2,
 			Object propertyValue2, String propertyName3, Object propertyValue3) throws SQLException {
 		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty(propertyName1, propertyValue1, propertyName2, propertyValue2, propertyName3, propertyValue3, new Content());
