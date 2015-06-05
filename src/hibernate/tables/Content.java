@@ -1,11 +1,15 @@
 package hibernate.tables;
 
+import hibernate.tables.contentInfo.ContentStatus;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +40,9 @@ public class Content implements Serializable, hibernate.tables.Table{
 	private String descriptionOfContent;
 	@Column(name = "c_text")
 	private String text;
-	@Column(name = "c_status")
-	private Byte status;
+	@Enumerated(EnumType.STRING)
+	@Column (columnDefinition="enum('EDITING_BY_AUTHOR' , 'CHECKING_BY_CORRECTOR', 'APPROVING_BY_EDITOR', 'IN_ARHIVE', 'DELETED', 'AVAILABLE')", name = "c_status")
+	private ContentStatus status;
 	@Column(name = "c_created")
 	private Timestamp created;
 	@Column(name = "c_lastedit")
@@ -126,11 +131,11 @@ public class Content implements Serializable, hibernate.tables.Table{
 		this.text = text;
 	}
 
-	public Byte getStatus() {
+	public ContentStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(Byte status) {
+	public void setStatus(ContentStatus status) {
 		this.status = status;
 	}
 
