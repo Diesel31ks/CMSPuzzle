@@ -1,9 +1,13 @@
 package hibernate.daoImpl;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
+
 import hibernate.dao.ContentDao;
 import hibernate.tables.Content;
+import hibernate.tables.User;
+import hibernate.tables.userInfo.UserRole;
 import hibernate.util.HibernateDaoBuilder;
 
 public class ContentDaoImpl implements ContentDao{
@@ -51,9 +55,31 @@ public class ContentDaoImpl implements ContentDao{
 			Object propertyValue2, String propertyName3, Object propertyValue3) throws SQLException {
 		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty(propertyName1, propertyValue1, propertyName2, propertyValue2, propertyName3, propertyValue3, new Content());
 	}
-	
 
 	public void updateContent(Content content) throws SQLException {
 		HibernateDaoBuilder.updateTableValue(content);
 	}
+	
+	public List<Content> getContentByUrl(String url) throws SQLException {
+		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty("url", url, new Content());
+	}
+	
+	public List<Content> getContentByDate(Timestamp created) throws SQLException {
+		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty("created", created, new Content());
+	}
+	
+	public List<Content> getContentByUser(User user) throws SQLException {
+		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty("author", user, new Content());
+	}
+
+	/*
+	 * TODO check work or not
+	 */
+	public List<Content> getContentByUserRole(UserRole userRole) throws SQLException {
+		User user = new User();
+		user.setRole(userRole);
+		return (List<Content>)HibernateDaoBuilder.getTableValuesByProperty("author", user, new Content());
+	}
+	
+	
 }

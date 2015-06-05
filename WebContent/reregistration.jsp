@@ -15,7 +15,6 @@
 			String lastName = (String) request.getAttribute("lastname");
 			String login = (String) request.getAttribute("login");
 			String email = (String) request.getAttribute("email");
-			// 			String role = (String) request.getAttribute("role");
 			if (firstName == null)
 				firstName = "";
 			if (lastName == null)
@@ -24,11 +23,9 @@
 				login = "";
 			if (email == null)
 				email = "";
-			// 			if (role == null)
-			// 				role = "";
 		%>
 		
-		<h3>This login is exist! Please try another!</h3>
+		<h3>This login or email is exist! Please try an other!</h3>
 		<h4>
 			After registration we will send you a letter. 
 			<br /> You should to go by reference on it to confirm your registration
@@ -59,11 +56,6 @@
 				<td>Password confirmation</td>
 				<td><input name="password_confirmation" type="password"></input></td>
 			</tr>
-			<!-- 			<tr> -->
-			<!-- 				<td>Role</td> -->
-			<%-- 				<td><input name="role" value="<%=role%>"> </input></td> --%>
-			<!-- 			</tr> -->
-
 			<tr>
 				<td colspan="2"><input type="submit" value="submit"> </input></td>
 			</tr>

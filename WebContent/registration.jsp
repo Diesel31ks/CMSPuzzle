@@ -14,11 +14,6 @@
 			String lastName = (String) request.getAttribute("lastname");
 			String login = (String) request.getAttribute("login");
 			String email = (String) request.getAttribute("email");
-			Boolean pasNotEquals = false;
-			pasNotEquals = (Boolean) request.getAttribute("passwords_not_equal");
-			Boolean reregister = false;
-			reregister = (Boolean) request.getAttribute("login_exists");
-			// 			String role = (String) request.getAttribute("role");
 			if (firstName == null)
 				firstName = "";
 			if (lastName == null)
@@ -27,14 +22,6 @@
 				login = "";
 			if (email == null)
 				email = "";
-			// 			if (role == null)
-			// 				role = "";
-// 			if (pasNotEquals.equals(true)){
-// 				out.println("<h3>Passwords are not equal</h3>");
-// 			}
-// 			if (reregister.equals(true)){
-// 				out.println("<h3>Login has already existed </h3>");
-// 			}
 		%>
 
 		<h4>

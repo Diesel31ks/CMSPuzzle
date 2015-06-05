@@ -61,13 +61,13 @@ public class Registration extends HttpServlet {
 		}
 		if (checkingLoginExists(login)) {
 			request.setAttribute("login", "");
-			getServletContext().getRequestDispatcher("/registration.jsp")
+			getServletContext().getRequestDispatcher("/reregistration.jsp")
 					.forward(request, response);
 			return;
 		}
 		if (checkingEmailExists(email)) {
 			request.setAttribute("email", "");
-			getServletContext().getRequestDispatcher("/registration.jsp")
+			getServletContext().getRequestDispatcher("/reregistration.jsp")
 					.forward(request, response);
 			return;
 		}
@@ -91,11 +91,14 @@ public class Registration extends HttpServlet {
 					+ "http://" + ServletUtil.MARGO_HOST + ":"
 					+ request.getServerPort() + info
 					+ "/successRegistration?login=" + newUser.getLogin()
-					+ "&confirmationCode=" + newUser.getConfirmCode() + " or "
-					+ "http://" + ServletUtil.MY_HOST + ":"
+					+ "&confirmationCode=" + newUser.getConfirmCode() + " 	or 	"
+					+ "http://" + ServletUtil.SASHA_HOST + ":"
 					+ request.getServerPort() + info
 					+ "/successRegistration?login=" + newUser.getLogin()
-					+ "&confirmationCode=" + newUser.getConfirmCode();
+					+ "&confirmationCode=" + newUser.getConfirmCode() + " 	or 	"
+					+ "http://" + ServletUtil.LOCALHOST + ":"
+					+ request.getServerPort() + info
+					+ "/successRegistration?login=" + newUser.getLogin();
 			ServletUtil.sendMessage(recipients, subject, text);
 			PrintWriter writer = response.getWriter();
 			writer.println("Message was sent. Check your email");

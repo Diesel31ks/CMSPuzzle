@@ -8,8 +8,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-public class HibernateDaoBuilder{
-	private HibernateDaoBuilder(){}
+public class HibernateDaoBuilder {
+	private HibernateDaoBuilder() {
+	}
 
 	public static void saveTableValue(Table table) throws SQLException {
 		Session session = null;
@@ -18,13 +19,17 @@ public class HibernateDaoBuilder{
 			session.beginTransaction();
 			session.save(table);
 			session.getTransaction().commit();
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
 			}
 		}
 	}
-	
+
 	public static void updateTableValue(Table table) throws SQLException {
 		Session session = null;
 		try {
@@ -32,13 +37,17 @@ public class HibernateDaoBuilder{
 			session.beginTransaction();
 			session.update(table);
 			session.getTransaction().commit();
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
 			}
 		}
 	}
-	
+
 	public static Table getTableValue(int id, Table table) throws SQLException {
 		Session session = null;
 		Table newTable = null;
@@ -47,6 +56,10 @@ public class HibernateDaoBuilder{
 			session.beginTransaction();
 			newTable = (Table) session.get(table.getClass(), id);
 			session.getTransaction().commit();
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
@@ -54,15 +67,23 @@ public class HibernateDaoBuilder{
 		}
 		return newTable;
 	}
-	
-	public static List<? extends Table> getTableValuesByProperty(String propertyName, Object propertyValue, Table table) throws SQLException {
+
+	public static List<? extends Table> getTableValuesByProperty(
+			String propertyName, Object propertyValue, Table table)
+			throws SQLException {
 		Session session = null;
 		List<? extends Table> tableValues = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			tableValues= (List<? extends Table>)session.createCriteria(table.getClass()).add(Restrictions.eq(propertyName, propertyValue)).list();
+			tableValues = (List<? extends Table>) session
+					.createCriteria(table.getClass())
+					.add(Restrictions.eq(propertyName, propertyValue)).list();
 			session.getTransaction().commit();
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
@@ -70,17 +91,51 @@ public class HibernateDaoBuilder{
 		}
 		return tableValues;
 	}
-	
-	public static List<? extends Table> getTableValuesByProperty(String propertyName1,
-			Object propertyValue1, String propertyName2, Object propertyValue2,
+
+	public static List<? extends Table> getTableValuesByProperty(
+			String propertyName1, Object propertyValue1, String propertyName2,
+			Object propertyValue2, Table table) {
+		Session session = null;
+		List<? extends Table> tableValues = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			tableValues = (List<? extends Table>) session
+					.createCriteria(table.getClass())
+					.add(Restrictions.eq(propertyName1, propertyValue1))
+					.add(Restrictions.eq(propertyName2, propertyValue2)).list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+		} finally {
+			if ((session != null) && (session.isOpen())) {
+				session.close();
+			}
+		}
+		return tableValues;
+	}
+
+	public static List<? extends Table> getTableValuesByProperty(
+			String propertyName1, Object propertyValue1, String propertyName2,
+			Object propertyValue2, String propertyName3, Object propertyValue3,
 			Table table) {
 		Session session = null;
 		List<? extends Table> tableValues = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			tableValues= (List<? extends Table>)session.createCriteria(table.getClass()).add(Restrictions.eq(propertyName1, propertyValue1)).add(Restrictions.eq(propertyName2, propertyValue2)).list();
+			tableValues = (List<? extends Table>) session
+					.createCriteria(table.getClass())
+					.add(Restrictions.eq(propertyName1, propertyValue1))
+					.add(Restrictions.eq(propertyName2, propertyValue2))
+					.add(Restrictions.eq(propertyName3, propertyValue3)).list();
 			session.getTransaction().commit();
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
@@ -88,35 +143,22 @@ public class HibernateDaoBuilder{
 		}
 		return tableValues;
 	}
-	
-	public static List<? extends Table> getTableValuesByProperty(String propertyName1,
-			Object propertyValue1, String propertyName2, Object propertyValue2, String propertyName3, Object propertyValue3,
-			Table table) {
-		Session session = null;
-		List<? extends Table> tableValues = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			tableValues= (List<? extends Table>)session.createCriteria(table.getClass()).add(Restrictions.eq(propertyName1, propertyValue1)).add(Restrictions.eq(propertyName2, propertyValue2)).add(Restrictions.eq(propertyName3, propertyValue3)).list();
-			session.getTransaction().commit();
-		} finally {
-			if ((session != null) && (session.isOpen())) {
-				session.close();
-			}
-		}
-		return tableValues;
-	}
-	
-	
-	public static List<? extends Table> getTableValues(Table table) throws SQLException {
+
+	public static List<? extends Table> getTableValues(Table table)
+			throws SQLException {
 		Session session = null;
 		List<? extends Table> tableValues = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			System.out.println(table.getClass().toString());
-			tableValues = (List<? extends Table>)session.createCriteria(table.getClass()).list();
+			tableValues = (List<? extends Table>) session.createCriteria(
+					table.getClass()).list();
 			session.getTransaction().commit();
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
@@ -124,7 +166,7 @@ public class HibernateDaoBuilder{
 		}
 		return tableValues;
 	}
-	
+
 	public static void deleteTableValue(Table obj) throws SQLException {
 		Session session = null;
 		try {
@@ -133,11 +175,13 @@ public class HibernateDaoBuilder{
 			session.delete(obj);
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 		} finally {
 			if ((session != null) && (session.isOpen())) {
 				session.close();
 			}
 		}
 	}
-
 }

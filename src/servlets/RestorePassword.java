@@ -74,8 +74,11 @@ public class RestorePassword extends HttpServlet {
 				+ ". To restore your password go by reference " 
 				+ "http://" + ServletUtil.MARGO_HOST + ":" + request.getServerPort() + info
 				+ "/restoringPassword?login=" + user.getLogin()
-				+ "&restoreCode=" + restoreCode + " или "
-				+ "http://" + ServletUtil.MY_HOST + ":" + request.getServerPort() + info
+				+ "&restoreCode=" + restoreCode + " 	or 	"
+				+ "http://" + ServletUtil.SASHA_HOST + ":" + request.getServerPort() + info
+				+ "/restoringPassword?login=" + user.getLogin()
+				+ "&restoreCode=" + restoreCode + " 	or 	"
+				+ "http://" + ServletUtil.LOCALHOST + ":" + request.getServerPort() + info
 				+ "/restoringPassword?login=" + user.getLogin()
 				+ "&restoreCode=" + restoreCode;
 		ServletUtil.sendMessage(recipients, subject, text);
