@@ -2,28 +2,32 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    
+        <!--property name="connection.driver_class">org.postgresql.Driver</property-->
+        <!--property name="hibernate.connection.url">jdbc:postgresql://212.15.156.32:5432/postgresql</property-->
+        <!--property name="hibernate.connection.username">qa</property-->
+        <!--property name="hibernate.connection.password">qa</property-->
+        <!--property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property-->
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         
-        
-        <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://212.15.156.32:5432/postgresql</property>
-        <property name="hibernate.connection.username">qa</property>
-        <property name="hibernate.connection.password">qa</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/puzzle</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">tj$74</property>
         
         <!--property name="hibernate.connection.url">jdbc:mysql://bane.beget.ru:3306/dieseljc_puzzle</property-->
-        <!--property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property-->
         <!--property name="hibernate.connection.username">dieseljc_puzzle</propert-->
         <!--property name="hibernate.connection.password">puzart6$2015</property-->
         
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         
 		<property name="hibernate.connection.autoReconnect">true</property>
         <property name="hibernate.connection.pool_size">50</property>
         <property name="show_sql">true</property>
-        <!--?autoReconnect=true&user=root&password=tj$74-->
-        
         <property name="hbm2ddl.auto">update</property>
         <property name="current_session_context_class">thread</property>
         
+        <!--?autoReconnect=true&user=root&password=tj$74-->
         
         <!-- tell hibernate to use C3P0 -->  
         <!--property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property-->
