@@ -6,9 +6,10 @@ import java.sql.SQLException;
 
 import hibernate.general.HibernateFactory;
 import hibernate.tables.User;
-
-
-public class TestGettingUserPasswod {
+/**
+ * @author Alexandr Khromov
+ */
+public class TestGettingUserPassword {
 	public static void main(String[] args) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
 		User user = new User();
 		user = HibernateFactory.getInstance().getUserDao().getUser(1);

@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.annotation.WebServlet;
 import authorization.EmailValidate;
 import authorization.PasswordHash;
-
+/**
+ * @author Alexandr Khromov
+ */
 //@WebServlet(description = "to register a new user", urlPatterns = { "/registration" })
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 5393044129773580802L;

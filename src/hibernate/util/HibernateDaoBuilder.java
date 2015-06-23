@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class HibernateDaoBuilder {
 	private HibernateDaoBuilder() {
 	}

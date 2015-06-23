@@ -13,7 +13,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class SendMessage {
 	private static final String CHARSET = "KOI8-R";
 	final private static String EMAIL = "team_puzzle@mail.ua";

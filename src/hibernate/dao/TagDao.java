@@ -3,7 +3,9 @@ package hibernate.dao;
 import hibernate.tables.Tag;
 import java.sql.SQLException;
 import java.util.List;
-
+/**
+ * @author Alexandr Khromov
+ */
 public interface TagDao{
 	void addTag(Tag tag) throws SQLException;
 

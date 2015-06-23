@@ -6,7 +6,9 @@ import java.util.Random;
 import javax.mail.MessagingException;
 
 import authorization.SendMessage;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class ServletUtil {
 	public static final String MARGO_HOST = "212.15.156.32";
 	public static final String SASHA_HOST = "10.9.2.159";

@@ -14,7 +14,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import authorization.PasswordHash;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class Example {
 	private static HibernateFactory factory = HibernateFactory.getInstance();
 

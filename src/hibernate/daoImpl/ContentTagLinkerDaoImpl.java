@@ -5,7 +5,9 @@ import java.util.List;
 import hibernate.dao.ContentTagLinkerDao;
 import hibernate.tables.ContentTagLinker;
 import hibernate.util.HibernateDaoBuilder;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class ContentTagLinkerDaoImpl implements ContentTagLinkerDao {
 
 	public void addLink(ContentTagLinker contentTagLinker) throws SQLException {

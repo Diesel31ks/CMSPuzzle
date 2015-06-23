@@ -5,7 +5,9 @@ import java.util.List;
 import hibernate.dao.TagDao;
 import hibernate.tables.Tag;
 import hibernate.util.HibernateDaoBuilder;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class TagDaoImpl implements TagDao {
 
 	public void addTag(Tag tag) throws SQLException {

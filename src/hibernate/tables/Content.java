@@ -17,7 +17,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+/**
+ * @author Alexandr Khromov
+ */
 @Entity
 @Table(name = "content")
 public class Content implements Serializable, hibernate.tables.Table{

@@ -4,7 +4,9 @@ import hibernate.tables.FrontPage;
 
 import java.sql.SQLException;
 import java.util.List;
-
+/**
+ * @author Alexandr Khromov
+ */
 public interface FrontPageDao{
 	void addFrontPageContent(FrontPage frontPage) throws SQLException;
 

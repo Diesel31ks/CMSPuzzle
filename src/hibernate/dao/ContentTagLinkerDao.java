@@ -4,7 +4,9 @@ import hibernate.tables.ContentTagLinker;
 
 import java.sql.SQLException;
 import java.util.List;
-
+/**
+ * @author Alexandr Khromov
+ */
 public interface ContentTagLinkerDao{
 
 	void addLink(ContentTagLinker contentTagLinker) throws SQLException;

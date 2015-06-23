@@ -1,5 +1,7 @@
 package authorization;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class TestEmailValidate {
 	public static void main(String[] args) {
 		System.out.println("Diesel31ks@mail.ru = "+EmailValidate.validateEmail("Diesel31ks@mail.ru"));

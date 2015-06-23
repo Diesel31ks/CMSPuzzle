@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import authorization.PasswordHash;
-
+/**
+ * @author Alexandr Khromov
+ */
 //@WebServlet("/login")
 public class Login extends HttpServlet {
 	private static final String SUCCESS_LOGIN = "/successLogin.jsp";

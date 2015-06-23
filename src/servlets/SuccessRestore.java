@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import authorization.PasswordHash;
-
+/**
+ * @author Alexandr Khromov
+ */
 //@WebServlet(name = "successRestore", urlPatterns = { "/successRestore" })
 public class SuccessRestore extends HttpServlet {
 	private static final String RESTORE_PASSWORD_FORM = "/restorePasswordForm.jsp";

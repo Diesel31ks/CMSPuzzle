@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import authorization.EmailValidate;
-
+/**
+ * @author Alexandr Khromov
+ */
 //@WebServlet("/restorePassword")
 public class RestorePassword extends HttpServlet {
 	private static final String RESTORE_PASSWORD = "/restorePassword.jsp";

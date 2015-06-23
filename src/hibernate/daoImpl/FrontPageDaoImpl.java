@@ -7,6 +7,9 @@ import hibernate.dao.FrontPageDao;
 import hibernate.tables.FrontPage;
 import hibernate.util.HibernateDaoBuilder;
 
+/**
+ * @author Alexandr Khromov
+ */
 public class FrontPageDaoImpl implements FrontPageDao {
 
 	public void addFrontPageContent(FrontPage frontPage) throws SQLException {

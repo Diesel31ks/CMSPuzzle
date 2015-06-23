@@ -17,7 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+/**
+ * @author Alexandr Khromov
+ */
 @Entity
 @Table(name = "users")
 public class User implements Serializable, hibernate.tables.Table{

@@ -9,7 +9,9 @@ import hibernate.tables.Content;
 import hibernate.tables.User;
 import hibernate.tables.userInfo.UserRole;
 import hibernate.util.HibernateDaoBuilder;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class ContentDaoImpl implements ContentDao{
 
 	public void addContent(Content content) throws SQLException {

@@ -3,8 +3,10 @@ package hibernate.dao;
 import hibernate.tables.Content;
 import java.sql.SQLException;
 import java.util.List;
-
-public interface ContentDao{
+/**
+ * @author Alexandr Khromov
+ */
+public interface ContentDao {
 
 	void addContent(Content content) throws SQLException;
 

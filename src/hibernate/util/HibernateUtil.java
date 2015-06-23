@@ -2,7 +2,9 @@ package hibernate.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
+/**
+ * @author Alexandr Khromov
+ */
 @SuppressWarnings("deprecation")
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;

@@ -6,7 +6,9 @@ import hibernate.general.HibernateFactory;
 import hibernate.tables.User;
 
 import javax.mail.MessagingException;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class TestSendMessage {
 	public static void main(String[] args) throws SQLException {
 		try {

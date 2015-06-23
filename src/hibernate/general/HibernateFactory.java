@@ -10,7 +10,9 @@ import hibernate.daoImpl.ContentTagLinkerDaoImpl;
 import hibernate.daoImpl.FrontPageDaoImpl;
 import hibernate.daoImpl.TagDaoImpl;
 import hibernate.daoImpl.UserDaoImpl;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class HibernateFactory {
 	private static HibernateFactory factory = new HibernateFactory();
 

@@ -4,7 +4,9 @@ import hibernate.tables.User;
 
 import java.sql.SQLException;
 import java.util.List;
-
+/**
+ * @author Alexandr Khromov
+ */
 public interface UserDao{
 
 	void addUser(User user) throws SQLException;

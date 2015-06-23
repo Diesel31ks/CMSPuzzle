@@ -5,7 +5,9 @@ import java.util.List;
 import hibernate.dao.UserDao;
 import hibernate.tables.User;
 import hibernate.util.HibernateDaoBuilder;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class UserDaoImpl implements UserDao {
 
 	public void addUser(User user) throws SQLException {

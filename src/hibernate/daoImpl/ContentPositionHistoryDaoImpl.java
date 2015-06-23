@@ -6,7 +6,9 @@ import java.util.List;
 import hibernate.dao.ContentPositionHistoryDao;
 import hibernate.tables.ContentPositionHistory;
 import hibernate.util.HibernateDaoBuilder;
-
+/**
+ * @author Alexandr Khromov
+ */
 public class ContentPositionHistoryDaoImpl implements ContentPositionHistoryDao {
 
 	public void addContentPositionHistory(

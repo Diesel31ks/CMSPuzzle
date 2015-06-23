@@ -3,7 +3,9 @@ package hibernate.dao;
 import hibernate.tables.ContentPositionHistory;
 import java.sql.SQLException;
 import java.util.List;
-
+/**
+ * @author Alexandr Khromov
+ */
 public interface ContentPositionHistoryDao {
 	void addContentPositionHistory(ContentPositionHistory contentPositionHistory) throws SQLException;
 

@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
-
+/**
+ * @author Alexandr Khromov
+ */
 @Entity
 @Table(name = "tag")
 public class Tag implements Serializable, hibernate.tables.Table{

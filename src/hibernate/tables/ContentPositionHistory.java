@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+/**
+ * @author Alexandr Khromov
+ */
 @Entity
 @Table(name = "content_position_history")
 public class ContentPositionHistory implements Serializable, hibernate.tables.Table{
